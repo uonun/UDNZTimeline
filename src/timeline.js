@@ -19,78 +19,80 @@
         rotateY: 32
     };
 
+    $._this = null;
+
     var defaults = {
-        '_id': Math.random(),
-        'id': 'my_timeline', // the ID of timeline instance.
-        'data_url': 'Data/timeline-nodes.json',
-        'css_class': '__tl_svg',
-        'container': {
-            'id': 'timeline_container', // the ID of container DOM.
-            'ref': null,
-            'width': 0,
-            'height': 250
+        "id": null,
+        "data_url": "Data/timeline-nodes.json",
+        "css_class": "__tl_svg",
+        "container": {
+            "id": "timeline_container", // the ID of container DOM.
+            "ref": null,
+            "width": 0,
+            "height": 250
         },
-        'figure': {
-            'id': '',
-            'ref': null,
-            'offset': {
+        "figure": {
+            "id": "",
+            "ref": null,
+            "offset": {
                 x: 0,
                 y: 0
             }
         },
-        'dots': {
-            'required': {
+        "dots": {
+            "required": {
                 "css": {
-                    'master': "__tl_master-dot",
-                    'branch': "__tl_branch-dot",
-                    'branching': '__tl_branching-dot'
+                    "master": "__tl_master-dot",
+                    "branch": "__tl_branch-dot",
+                    "branching": "__tl_branching-dot"
                 }
             },
-            'states': {
-                'normal': {
-                    'stateId': 0,
-                    'color': '#C3C3C3',
-                    'color_background': '#fff000',
-                    'radius': 12,
-                    'border': 12
+            "states": {
+                "normal": {
+                    "stateId": 0,
+                    "color": "#C3C3C3",
+                    "color_background": "#fff000",
+                    "radius": 12,
+                    "border": 12
                 },
-                'active': {
-                    'stateId': 1,
-                    'color': '#ff8800',
-                    'radius': 15,
-                    'border': 5
+                "active": {
+                    "stateId": 1,
+                    "color": "#ff8800",
+                    "radius": 15,
+                    "border": 5
                 }
             }
         },
-        'lines': {
-            'required': {
+        "lines": {
+            "required": {
                 "css": {
-                    'master': "__tl_solid-line __tl_master",
-                    'branch': "__tl_solid-line __tl_branch"
+                    "master": "__tl_solid-line __tl_master",
+                    "branch": "__tl_solid-line __tl_branch"
                 }
             },
-            'width': 8,
-            'color': '#C3C3C3',
-            'color_dotted': '#C3C3C3',
-            'color_bezier': '#C3C3C3',
-            'stroke_dasharray': '16, 8',
+            "width": 8,
+            "color": "#C3C3C3",
+            "color_dotted": "#C3C3C3",
+            "color_bezier": "#C3C3C3",
+            "stroke_dasharray": "16, 8",
             "branchOffsetY": 50
         },
-        'board': {
-            'width': 220,
-            'color_bg': '#ff8800',
-            'margin': 10,
-            'border': 5,
-            'spliter_width': 3
+        "board": {
+            "width": 220,
+            "color_bg": "#ff8800",
+            "margin": 10,
+            "border": 5,
+            "spliter_width": 3
         },
-        'effect': $.DEFINED_EFFECT_TYPE.fade | $.DEFINED_EFFECT_TYPE.translate
+        "effect": $.DEFINED_EFFECT_TYPE.fade | $.DEFINED_EFFECT_TYPE.translate
     };
     var const_dataId_spliter = ",";
     var dotDomTag = "dot";
 
     UDNZTimelineJS = function (options) {
-        var _this = this;
+        var _this = $._this = this;
         this.params = $.extend(true, {}, defaults, options || {});
+        this.params.id = "TimelineJS_" + parseInt(Math.random() * 1000000000);
         this._lastPoint = {x: 0, y: 0};
         this._cache = {data: null};
 
@@ -140,7 +142,7 @@
         this.ShowNode = function (nodeId, delay) {
             var internalId = "#" + this.__getPrivateDomId(nodeId);
             if (!!delay) {
-                setTimeout(this.__showDetail(internalId), delay);
+                setTimeout("$._this.__showDetail('" + internalId + "')", delay);
             } else {
                 this.__showDetail(internalId);
             }
@@ -150,7 +152,11 @@
 
         this.ShowNodeCB = function (nodeId, callback, callback_data) {
             this.ShowNode(nodeId);
-            callback(callback_data);
+            try {
+                callback(callback_data);
+            } catch (e) {
+                this.__showErrMsg("[HideNodeCB] Got error while executing callback.<br />&nbsp;&nbsp;name: " + e.name + "<br />&nbsp;&nbsp;message: " + e.message);
+            }
             return this;
         };
 
@@ -166,12 +172,21 @@
 
         this.HideNodeCB = function (callback, callback_data) {
             this.HideNode();
-            callback(callback_data);
+            try {
+                callback(callback_data);
+            } catch (e) {
+                this.__showErrMsg("[HideNodeCB] Got error while executing callback.<br />&nbsp;&nbsp;name: " + e.name + "<br />&nbsp;&nbsp;message: " + e.message);
+            }
             return this;
         }
 
         this.__loadNodes = function () {
-            this.params.container.width = parseInt(this.params.container.ref.width());
+            if (!!!this.params.container.width || isNaN(this.params.container.width)) {
+                this.params.container.width = parseInt(this.params.container.ref.width());
+            }
+            else {
+                this.params.container.ref.css("width", this.params.container.width + "px");
+            }
 
             var svg = $("#" + this.params.id)[0];
             if (!!svg) {
@@ -604,6 +619,10 @@
         }
 
         $(window).resize(function () {
+            // the container is re-sized, we must calculate the width of figure again.
+            // but fortunately, the method "__loadNodes" will calculate the width by-effect if the value is zero.
+            // ok, so, just set to zero and let the method calculate it!
+            _this.params.container.width = 0;
             _this.__loadNodes();
         });
 
