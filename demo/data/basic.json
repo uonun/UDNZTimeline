@@ -22,7 +22,7 @@
             "board": {
                 "width": 280
             },
-            "description": "<img src='images/coreplex.jpg' width='260' height='146' border='0' /><br /><strong>&lt;HTML&gt;</strong> <span style='color:blue'>tags</span> supported!"
+            "description": "<img src='images/coreplex.jpg' width='260' height='146' border='0' vspace='5' /><br /><strong>&lt;HTML&gt;</strong> <span style='color:blue'>tags</span> supported!"
         },
         {
             "nodeId": "node_4",

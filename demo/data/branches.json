@@ -59,7 +59,7 @@
             "title": "<span style='color: red;'>Another day</span>",
             "date": "2005/07/01 00:00:00",
             "percent": 35,
-            "description": "<img src='images/coreplex.jpg' width='260' height='146' border='0' /><br />Nice! I am already here by default.",
+            "description": "<img src='images/coreplex.jpg' width='260' height='146' vspace='5' border='0' /><br />Nice! I am already here by default.",
             "nodes":[
                 {
                     "nodeId": "node_6",
