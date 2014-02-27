@@ -15,7 +15,7 @@
     <script src="../src/timeline.js?v=1.0.0.1"></script>
     <script>
         $(function () {
-            $.UDNZTimeline({
+            var line1 = $.UDNZTimeline({
                 'id': 'my_timeline', // the ID of timeline instance.
                 'data_url': '../src/timeline-nodes.json',
                 'container': {
@@ -29,13 +29,28 @@
                 'container': {
                     'id': 'demo_2_container_2' // the ID of container DOM.
                 }
-            }).Draw()
+            }).Draw();
+
+            $(".d1_show").each(function () {
+                $(this).val($(this).attr("data"));
+                $(this).click(function () {
+                    line1.ShowNode($(this).attr("data"));
+                });
+            });
+
+            $(".d1_hide").click(function () {
+                line1.HideNode();
+            });
         });
     </script>
     <meta name="author" content="udnz.com"/>
 </head>
 <body>
 <h1>Demo 1</h1>
+Show:
+<input type="button" value="Show" class="d1_show" data="node_3"/>
+<input type="button" value="Show" class="d1_show" data="node_6"/>
+<input type="button" value="Hide" class="d1_hide"/><br />
 
 <div id="demo_1_container"></div>
 

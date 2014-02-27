@@ -19,129 +19,130 @@
         rotateY: 32
     };
 
-    $.UDNZTimeline = function (options) {
-        var defaults = {
-            '_id': Math.random(),
-            'id': 'my_timeline', // the ID of timeline instance.
-            'data_url': 'Data/timeline-nodes.json',
-            'css_class': '__tl_svg',
-            'container': {
-                'id': 'timeline_container', // the ID of container DOM.
-                'ref': null,
-                'width': 0,
-                'height': 250
-            },
-            'figure': {
-                'id': '',
-                'ref': null,
-                'offset': {
-                    x: 0,
-                    y: 0
+    var defaults = {
+        '_id': Math.random(),
+        'id': 'my_timeline', // the ID of timeline instance.
+        'data_url': 'Data/timeline-nodes.json',
+        'css_class': '__tl_svg',
+        'container': {
+            'id': 'timeline_container', // the ID of container DOM.
+            'ref': null,
+            'width': 0,
+            'height': 250
+        },
+        'figure': {
+            'id': '',
+            'ref': null,
+            'offset': {
+                x: 0,
+                y: 0
+            }
+        },
+        'dots': {
+            'required': {
+                "css": {
+                    'master': "__tl_master-dot",
+                    'branch': "__tl_branch-dot",
+                    'branching': '__tl_branching-dot'
                 }
             },
-            'dots': {
-                'required': {
-                    "css": {
-                        'master': "__tl_master-dot",
-                        'branch': "__tl_branch-dot",
-                        'branching': '__tl_branching-dot'
-                    }
+            'states': {
+                'normal': {
+                    'stateId': 0,
+                    'color': '#C3C3C3',
+                    'color_background': '#fff000',
+                    'radius': 12,
+                    'border': 12
                 },
-                'states': {
-                    'normal': {
-                        'stateId': 0,
-                        'color': '#C3C3C3',
-                        'color_background': '#fff000',
-                        'radius': 12,
-                        'border': 12
-                    },
-                    'active': {
-                        'stateId': 1,
-                        'color': '#ff8800',
-                        'radius': 15,
-                        'border': 5
-                    }
+                'active': {
+                    'stateId': 1,
+                    'color': '#ff8800',
+                    'radius': 15,
+                    'border': 5
+                }
+            }
+        },
+        'lines': {
+            'required': {
+                "css": {
+                    'master': "__tl_solid-line __tl_master",
+                    'branch': "__tl_solid-line __tl_branch"
                 }
             },
-            'lines': {
-                'required': {
-                    "css": {
-                        'master': "__tl_solid-line __tl_master",
-                        'branch': "__tl_solid-line __tl_branch"
-                    }
-                },
-                'width': 8,
-                'color': '#C3C3C3',
-                'color_dotted': '#C3C3C3',
-                'color_bezier': '#C3C3C3',
-                'stroke_dasharray': '16, 8',
-                "branchOffsetY": 50
-            },
-            'board': {
-                'width': 220,
-                'color_bg': '#ff8800',
-                'margin': 10,
-                'border': 5,
-                'spliter_width': 3
-            },
-            'effect': $.DEFINED_EFFECT_TYPE.fade | $.DEFINED_EFFECT_TYPE.translate
-        };
+            'width': 8,
+            'color': '#C3C3C3',
+            'color_dotted': '#C3C3C3',
+            'color_bezier': '#C3C3C3',
+            'stroke_dasharray': '16, 8',
+            "branchOffsetY": 50
+        },
+        'board': {
+            'width': 220,
+            'color_bg': '#ff8800',
+            'margin': 10,
+            'border': 5,
+            'spliter_width': 3
+        },
+        'effect': $.DEFINED_EFFECT_TYPE.fade | $.DEFINED_EFFECT_TYPE.translate
+    };
+    var const_dataId_spliter = ",";
+    var dotDomTag = "dot";
 
-        param = $.extend(true, {}, defaults, options || {});
-
-        var _lastPoint = {x: 0, y: 0};
-        var _cache = {data: null};
-        var const_dataId_spliter = ",";
+    UDNZTimelineJS = function (options) {
+        var _this = this;
+        this.params = $.extend(true, {}, defaults, options || {});
+        this._lastPoint = {x: 0, y: 0};
+        this._cache = {data: null};
 
         this.Draw = function () {
-            var container = $("#" + param.container.id);
+            var container = $("#" + this.params.container.id);
             if (container.length == 0) {
-                __showErrMsg("Can not get the container: #" + param.container.id + " !");
+                this.__showErrMsg("Can not get the container: #" + this.params.container.id + " !");
                 return null;
             }
 
-            param.container.ref = container;
+            this.params.container.ref = container;
 
             // prepare the svg.
-            var svg = __createElementNS(document, 'svg', 'http://www.w3.org/2000/svg');
+            var svg = this.__createElementNS(document, 'svg', 'http://www.w3.org/2000/svg');
             if (!!svg) {
-                svg.setAttribute("id", param.id);
-                svg.setAttribute("class", param.css_class);
-                svg.setAttribute("height", param.container.height);
+                svg.setAttribute("id", this.params.id);
+                svg.setAttribute("class", this.params.css_class);
+                svg.setAttribute("height", this.params.container.height);
                 svg.setAttribute("width", "100%");
                 svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
 
-                param.figure.id = __getPrivateDomId("svg_container");
+                this.params.figure.id = this.__getPrivateDomId("svg_container");
                 // generate figure container.
                 container.prepend("<div " +
-                    "id='" + param.figure.id + "' " +
-                    "class='" + __getEffectStyle() + "'" +
+                    "id='" + this.params.figure.id + "' " +
+                    "class='" + this.__getEffectStyle() + "'" +
                     "style='position: relative; overflow: hidden;'" +
                     "></div>");
 
                 // get the DOM after generating.
-                param.figure.ref = $("#" + param.figure.id);
-                param.figure.ref.prepend(svg);
+                this.params.figure.ref = $("#" + this.params.figure.id);
+                this.params.figure.ref.prepend(svg);
 
                 // generate detail dashboard.
                 // the svg must be the first child of <figure> for we are using absolute position by <figure>.
-                param.figure.ref.append(
-                    "<div id='" + param.container.id + "_board' class='__tl_info'><header></header><div class='__tl_detail'></div></div>"
+                this.params.figure.ref.append(
+                    "<div id='" + this.params.container.id + "_board' class='__tl_info'><header></header><div class='__tl_detail'></div></div>"
                 );
 
                 // load and draw.
-                __loadNodes();
+                this.__loadNodes();
             }
 
             return this;
         };
 
         this.ShowNode = function (nodeId, delay) {
-            var internalId = "#" + __getPrivateDomId(nodeId);
+            var internalId = "#" + this.__getPrivateDomId(nodeId);
             if (!!delay) {
-                setTimeout("__showDetail('" + internalId + "')", delay);
+                setTimeout(this.__showDetail(internalId), delay);
             } else {
-                __showDetail(internalId);
+                this.__showDetail(internalId);
             }
 
             return this;
@@ -153,70 +154,69 @@
             return this;
         };
 
-        this.HideNode = function (nodeId, delay) {
-            var internalId = "#" + __getPrivateDomId(nodeId);
+        this.HideNode = function (delay) {
             if (!!delay) {
-                setTimeout("__hideDetail('" + internalId + "')", delay);
+                setTimeout("__hideDetail()", delay);
             } else {
-                __hideDetail(internalId);
+                this.__hideDetail();
             }
 
             return this;
         }
 
-        this.HideNodeCB = function (nodeId, callback, callback_data) {
-            this.HideNode(nodeId);
+        this.HideNodeCB = function (callback, callback_data) {
+            this.HideNode();
             callback(callback_data);
             return this;
         }
 
-        __loadNodes = function () {
-            param.container.width = parseInt(param.container.ref.width());
+        this.__loadNodes = function () {
+            this.params.container.width = parseInt(this.params.container.ref.width());
 
-            var svg = $("#" + param.id)[0];
+            var svg = $("#" + this.params.id)[0];
             if (!!svg) {
-                svg.setAttribute("height", param.container.height);
-                svg.setAttribute("width", param.container.width);
+                svg.setAttribute("height", this.params.container.height);
+                svg.setAttribute("width", this.params.container.width);
 
                 // remove all old stuff.
-                param.container.ref.find(".__tl_removable").remove();
+                this.params.container.ref.find(".__tl_removable").remove();
 
                 // the first point
-                _lastPoint.x = 0;
-                _lastPoint.y = param.container.height / 2;
+                this._lastPoint.x = 0;
+                this._lastPoint.y = this.params.container.height / 2;
 
 
-                if (!!_cache.data) {
-                    __drawNodes(_cache.data);
+                if (!!this._cache.data) {
+                    this.__drawNodes(this._cache.data);
                 } else {
-                    $.ajax({type: "GET", url: param.data_url, dataType: "json", success: function (data) {
-                        _cache.data = data;
-                        __drawNodes(data);
+                    $.ajax({type: "GET", url: this.params.data_url, dataType: "json", context: this, success: function (data) {
+                        this._cache.data = data;
+                        this.__drawNodes(data);
                     }, error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        __showErrMsg("Data error, Please check the file: \"" + this.url + "\" !");
+                        this.__showErrMsg("Data error, Please check the file: \"" + this.url + "\" !");
                     }});
                 }
             } else {
-                __showErrMsg("Can not create &lt;svg&gt;!");
+                this.__showErrMsg("Can not create &lt;svg&gt;!");
             }
         };
 
-        __drawNodes = function (data) {
-            var svg = $("#" + param.id)[0];
+        this.__drawNodes = function (data) {
+            var svg = $("#" + this.params.id)[0];
             for (var idx in data.nodes) {
                 var node = data.nodes[idx];
                 var pFrom = {
-                    x: _lastPoint.x,
-                    y: _lastPoint.y
+                    x: this._lastPoint.x,
+                    y: this._lastPoint.y
                 };
                 var pTo = {
-                    x: parseInt(param.container.width) / 100 * parseInt(node.percent),
-                    y: parseInt(param.container.height / 2) // + Math.random() * 50 - 25;
+                    x: parseInt(this.params.container.width) / 100 * parseInt(node.percent),
+                    y: parseInt(this.params.container.height / 2) // + Math.random() * 50 - 25;
                 };
 
-                __drawLine({
+                this.__drawLine({
                     svg: svg,
-                    cls: param.lines.required.css.master,
+                    cls: this.params.lines.required.css.master,
                     from: pFrom,
                     to: pTo,
                     node: node
@@ -225,8 +225,8 @@
                 var dotCss = "";
                 // draw branches
                 if (!!node.nodes) {
-                    dotCss += param.dots.required.css.branching + " ";
-                    var branchOffsetY = param.lines.branchOffsetY;
+                    dotCss += this.params.dots.required.css.branching + " ";
+                    var branchOffsetY = this.params.lines.branchOffsetY;
                     var pFrom2 = {
                         x: pTo.x,
                         y: pTo.y
@@ -251,28 +251,29 @@
                         }
 
                         var pToChild = {
-                            x: parseInt(param.container.width) / 100 * parseInt(item.percent),
-                            y: parseInt(param.container.height) / 2 + parseInt(item.offsetY)
+                            x: parseInt(this.params.container.width) / 100 * parseInt(item.percent),
+                            y: parseInt(this.params.container.height) / 2 + parseInt(item.offsetY)
                         };
 
-                        var method = Math.abs(pFrom2.y - pToChild.y) < 5 ? __drawLine : __drawBezier;
-                        method({
+                        var method = Math.abs(pFrom2.y - pToChild.y) < 5 ? this.__drawLine : this.__drawBezier;
+                        // must use the method "call" to rewrite "this" as current instance of UDNZTimelineJS while not window.
+                        method.call(this, {
                             svg: svg,
-                            cls: param.lines.required.css.branch,
+                            cls: this.params.lines.required.css.branch,
                             from: pFrom2,
                             to: pToChild,
                             node: item
                         });
                         var dataId = idx + const_dataId_spliter + i;
-                        __drawHotDot(dataId, param.dots.required.css.branch, pToChild);
+                        this.__drawHotDot(dataId, this.params.dots.required.css.branch, pToChild);
                         pFrom2 = pToChild;
                     }
                 }
-                dotCss += param.dots.required.css.master;
+                dotCss += this.params.dots.required.css.master;
 
                 // draw trunk
-                __drawHotDot(idx, dotCss, pTo);
-                _lastPoint = pTo;
+                this.__drawHotDot(idx, dotCss, pTo);
+                this._lastPoint = pTo;
             }
         };
 
@@ -280,13 +281,13 @@
          * Draw a hot dot onto the time-line.
          * @dataId: the index of node. could be like them: "2" or "2,1". (const_dataId_spliter = ",“)
          * */
-        __drawHotDot = function (dataId, cssName, to) {
+        this.__drawHotDot = function (dataId, cssName, to) {
             // apply global offset for the figure.
-            to = __applyOffset(to, param.figure.offset);
+            to = this.__applyOffset(to, this.params.figure.offset);
 
             var id = null;
             var showIt = false;
-            var node = __getNodeByDataId(dataId);
+            var node = this.__getNodeByDataId(dataId);
             if (!!node) {
                 id = node.nodeId;
                 showIt = node.show;
@@ -296,34 +297,34 @@
                 id = "__tl_HotDot_" + Math.round(Math.random() * 10000);
             }
 
-            id = __getPrivateDomId(id);
+            id = this.__getPrivateDomId(id);
 
-            var dotStyle = __getHotDotStyle({
+            var dotStyle = this.__getHotDotStyle({
                 dom: null,
-                state: __getHotDotState(0, null, node),
+                state: this.__getHotDotState(0, null, node),
                 position: to,
                 node: node
             });
 
-            param.figure.ref.append("<dot id='" + id + "' " +
+            this.params.figure.ref.append("<" + dotDomTag + " id='" + id + "' " +
                 "class='" + cssName + " __tl_removable' " +
                 "dataId='" + dataId + "' " +
                 "x='" + to.x + "' " +
                 "y='" + to.y + "'" +
                 "style='" + dotStyle + "'" +
-                "></dot>");
+                "></" + dotDomTag + ">");
 
             $("#" + id).mouseenter(function () {
-                __showDetail("#" + id);
+                _this.__showDetail("#" + id);
             }).mouseleave(function () {
-                    __hideDetail("#" + id);
+                    _this.__hideDetail("#" + id);
                 });
 
             if (showIt)
-                __showDetail("#" + id);
+                this.__showDetail("#" + id);
         };
 
-        __drawLine = function (args) {
+        this.__drawLine = function (args) {
             var svg = args.svg,
                 cls = args.cls,
                 from = args.from,
@@ -331,15 +332,15 @@
                 node = args.node;
 
             // apply global offset for the figure.
-            from = __applyOffset(from, param.figure.offset);
-            to = __applyOffset(to, param.figure.offset);
+            from = this.__applyOffset(from, this.params.figure.offset);
+            to = this.__applyOffset(to, this.params.figure.offset);
 
             // build lineStyle
             {
                 var lineStyle = "";
 
                 if (!!node && !!node.lines) {
-                    node.lines = $.extend(true, {}, param.lines, node.lines || {});
+                    node.lines = $.extend(true, {}, this.params.lines, node.lines || {});
                     if (!!node.lines.type && node.lines.type === "dotted") {
                         lineStyle += "stroke-dasharray:" + node.lines.stroke_dasharray + ";";
                         lineStyle += "stroke:" + node.lines.color_dotted + ";";
@@ -348,12 +349,12 @@
                     }
                     lineStyle += "stroke-width:" + node.lines.width + ";";
                 } else {
-                    lineStyle = "stroke-width:" + param.lines.width + ";";
-                    lineStyle += "stroke:" + param.lines.color + ";";
+                    lineStyle = "stroke-width:" + this.params.lines.width + ";";
+                    lineStyle += "stroke:" + this.params.lines.color + ";";
                 }
             }
 
-            var line = __createElementNS(document, 'line', 'http://www.w3.org/2000/svg');
+            var line = this.__createElementNS(document, 'line', 'http://www.w3.org/2000/svg');
             if (!!line) {
                 line.setAttribute("class", cls + " __tl_removable");
                 line.setAttribute("x1", from.x);
@@ -365,7 +366,7 @@
             }
         };
 
-        __drawBezier = function (args) {
+        this.__drawBezier = function (args) {
             var svg = args.svg,
                 cls = args.cls,
                 from = args.from,
@@ -373,39 +374,42 @@
                 node = args.node;
 
             // apply global offset for the figure.
-            from = __applyOffset(from, param.figure.offset);
-            to = __applyOffset(to, param.figure.offset);
+            from = this.__applyOffset(from, this.params.figure.offset);
+            to = this.__applyOffset(to, this.params.figure.offset);
 
             var offset = to.y - from.y;
             var d = "M";
             d += from.x + " " + from.y + " ";
-            d += "Q" + parseInt(from.x + Math.abs(offset)) + " " + parseInt(from.y + offset) + " " + to.x + " " + parseInt(to.y - param.lines.width / 2) + " ";
-            d += "L" + to.x + " " + parseInt(to.y + param.lines.width / 2) + " ";
-            d += "Q" + parseInt(from.x + Math.abs(offset)) + " " + parseInt(to.y + param.lines.width / 2) + " " + from.x + " " + from.y + " ";
+            d += "Q" + parseInt(from.x + Math.abs(offset)) + " " + parseInt(from.y + offset) + " " + to.x + " " + parseInt(to.y - this.params.lines.width / 2) + " ";
+            d += "L" + to.x + " " + parseInt(to.y + this.params.lines.width / 2) + " ";
+            d += "Q" + parseInt(from.x + Math.abs(offset)) + " " + parseInt(to.y + this.params.lines.width / 2) + " " + from.x + " " + from.y + " ";
             d += "Z";
-            var path = __createElementNS(document, 'path', 'http://www.w3.org/2000/svg');
+            var path = this.__createElementNS(document, 'path', 'http://www.w3.org/2000/svg');
             if (!!path) {
                 path.setAttribute("class", cls + " __tl_removable");
                 path.setAttribute("d", d);
                 path.setAttribute("stroke-width", "0");
-                path.setAttribute("style", "fill:" + param.lines.color_bezier);
+                path.setAttribute("style", "fill:" + this.params.lines.color_bezier);
                 svg.appendChild(path);
             }
         };
 
-        __showDetail = function (dot) {
+        this.__showDetail = function (dot) {
             var dotDom = $(dot)[0];
             if (!!!dotDom) return;
 
-            var div = $("#" + param.container.id + " .__tl_info");
+            var div = $("#" + this.params.container.id + " .__tl_info");
             var dataId = $(dot).attr("dataId");
             if (!!dataId) {
+
+                this.__hideDetail();
+
                 var offsetY = dotDom.offsetTop;
-                var node = __getNodeByDataId(dataId);
+                var node = this.__getNodeByDataId(dataId);
                 if (!!node) {
                     // fill the required/defined member.
-                    var dots_cfg = $.extend(true, {}, param.dots.states.active, node.states || {});
-                    var board_cfg = $.extend(true, {}, param.board, node.board || {});
+                    var dots_cfg = $.extend(true, {}, this.params.dots.states.active, node.states || {});
+                    var board_cfg = $.extend(true, {}, this.params.board, node.board || {});
 
                     // fill content
                     div.find("header").html(node.title);
@@ -417,9 +421,9 @@
                     {
                         var offsetFromDot = dotDom.offsetHeight / 2;                            // offset caused by Dot DOM
                         var offsetFromBoard = div.height() / 2 + board_cfg.border + board_cfg.spliter_width;     // offset caused by Board DOM
-                        var offsetFromLine = param.lines.width / 2;                             // offset caused by Line DOM
+                        var offsetFromLine = this.params.lines.width / 2;                             // offset caused by Line DOM
                         var top = offsetY - offsetFromBoard + offsetFromLine + offsetFromDot;
-                        if (dotDom.offsetLeft < param.container.width / 2) {
+                        if (dotDom.offsetLeft < this.params.container.width / 2) {
                             var left = (dotDom.offsetLeft < 0 ? 0 : dotDom.offsetLeft) + board_cfg.margin + dots_cfg.radius * 2 + dots_cfg.border;
                             div.css("left", left + "px")
                                 .css("top", top + "px")
@@ -432,12 +436,11 @@
                         }
                     }
 
-                    // set the state of other dots to normal
-                    $(dot).parent().find("div").removeClass("__tl_dot_current");
+
                     // set the state of current dot as active.
-                    $(dot).addClass("__tl_dot_current").attr("style", __getHotDotStyle({
+                    $(dot).addClass("__tl_dot_current").attr("style", this.__getHotDotStyle({
                         dom: dotDom,
-                        state: __getHotDotState(1, dotDom, node),
+                        state: this.__getHotDotState(1, dotDom, node),
                         position: null,
                         node: node
                     }));
@@ -445,27 +448,27 @@
                     // set detail board
                     $(".__tl_info").css("width", board_cfg.width + "px")
                         .css("background-color", board_cfg.color_bg)
-                        .css("padding", board_cfg.border + "px")
-                    ;
+                        .css("padding", board_cfg.border + "px");
                 }
             }
         };
 
-        __hideDetail = function (dot) {
-            var dotDom = $(dot)[0];
-            if (!!!dotDom) return;
-
-            var div = $(".__tl_info");
+        this.__hideDetail = function () {
+            var div = $("#" + this.params.container.id + " .__tl_info");
             div.removeClass("__tl_showOnLeft").removeClass("__tl_showOnRight");
-            $(dot).removeClass("__tl_dot_current").attr("style", __getHotDotStyle({
-                dom: dotDom,
-                state: __getHotDotState(0, dotDom, null),
-                position: null,
-                node: null
-            }));
+
+            // set the state of other dots to normal
+            this.params.figure.ref.find(".__tl_dot_current").each(function () {
+                $(this).removeClass("__tl_dot_current").attr("style", _this.__getHotDotStyle({
+                    dom: this,
+                    state: _this.__getHotDotState(0, this, null),
+                    position: null,
+                    node: null
+                }));
+            });
         };
 
-        __createElementNS = function (parent, tagName, namespace) {
+        this.__createElementNS = function (parent, tagName, namespace) {
             var dom = null;
             if (!!parent.createElementNS) // createElementNS is not supported in IE
                 dom = parent.createElementNS(namespace, tagName);
@@ -474,14 +477,14 @@
             return dom;
         };
 
-        __getNodeByDataId = function (dataId) {
+        this.__getNodeByDataId = function (dataId) {
             var result = null;
             if (!!dataId) {
                 // e.g.: ids [3,1]
                 var ids = dataId.split(const_dataId_spliter);
                 var idLv0 = parseInt(ids[0]), idLv1 = parseInt(ids[1]);
-                if (!!_cache.data && !!_cache.data.nodes && _cache.data.nodes.length > parseInt(idLv0)) {
-                    result = _cache.data.nodes[idLv0];
+                if (!!this._cache.data && !!this._cache.data.nodes && this._cache.data.nodes.length > parseInt(idLv0)) {
+                    result = this._cache.data.nodes[idLv0];
                     if (!!result && !!result.nodes) {
                         if (idLv1 >= 0 && result.nodes.length > idLv1) {
                             result = result.nodes[idLv1];
@@ -492,16 +495,16 @@
             return result;
         };
 
-        __getPrivateDomId = function (domId) {
-            return param.id + "_" + domId;
+        this.__getPrivateDomId = function (domId) {
+            return this.params.id + "_" + domId;
         }
 
-        __applyOffset = function (pSrc, offset) {
+        this.__applyOffset = function (pSrc, offset) {
             return {x: pSrc.x + offset.x, y: pSrc.y + offset.y};
         }
 
         /*
-         *   @args: the parameter args must be a JSON structure:
+         *   @args: must be a JSON structure:
          *       {
          *           dom: ...,       // the DOM
          *           state:...,      // see defaults.dots.states
@@ -509,7 +512,7 @@
          *           node:...        // the data node
          *       }
          * */
-        __getHotDotStyle = function (args) {
+        this.__getHotDotStyle = function (args) {
             var dom = args.dom;
             var state = args.state;
             var position = args.position;
@@ -539,61 +542,61 @@
         /*
          * @stateId: 0 = normal, 1 = active
          * */
-        __getHotDotState = function (stateId, dom, node) {
+        this.__getHotDotState = function (stateId, dom, node) {
             if (!!!node) {
                 if (!!dom) {
-                    node = __getNodeByDataId($(dom).attr("dataId"));
+                    node = this.__getNodeByDataId($(dom).attr("dataId"));
                 }
             }
 
-            var states = param.dots.states;
+            var states = this.params.dots.states;
             if (!!node && !!node.states) {
                 states = node.states;
             }
 
             // fill the required/defined member.
-            states = $.extend(true, {}, param.dots.states, states || {});
+            states = $.extend(true, {}, this.params.dots.states, states || {});
 
             return stateId == 1 ? states.active : states.normal;
         }
 
-        __getEffectStyle = function () {
-            if (param.effect == 0)
-                param.effect = defaults.effect;
+        this.__getEffectStyle = function () {
+            if (this.params.effect == 0)
+                this.params.effect = defaults.effect;
 
             var figureCls = "";
-            if (param.effect == $.DEFINED_EFFECT_TYPE.slide) {
+            if (this.params.effect == $.DEFINED_EFFECT_TYPE.slide) {
                 // slide could NOT be used stand alone.
-                param.effect |= $.DEFINED_EFFECT_TYPE.fade;
+                this.params.effect |= $.DEFINED_EFFECT_TYPE.fade;
             }
 
-            if ((param.effect & $.DEFINED_EFFECT_TYPE.curt) == $.DEFINED_EFFECT_TYPE.curt) {
+            if ((this.params.effect & $.DEFINED_EFFECT_TYPE.curt) == $.DEFINED_EFFECT_TYPE.curt) {
                 // curt MUST be used stand alone only.
                 figureCls = "__tl_e_curt";
             } else {
-                if ((param.effect & $.DEFINED_EFFECT_TYPE.fade) == $.DEFINED_EFFECT_TYPE.fade)
+                if ((this.params.effect & $.DEFINED_EFFECT_TYPE.fade) == $.DEFINED_EFFECT_TYPE.fade)
                     figureCls += " __tl_e_fade";
 
-                if ((param.effect & $.DEFINED_EFFECT_TYPE.rotateX) == $.DEFINED_EFFECT_TYPE.rotateX)
+                if ((this.params.effect & $.DEFINED_EFFECT_TYPE.rotateX) == $.DEFINED_EFFECT_TYPE.rotateX)
                     figureCls += " __tl_e_rotateX";
 
-                if ((param.effect & $.DEFINED_EFFECT_TYPE.rotateY) == $.DEFINED_EFFECT_TYPE.rotateY)
+                if ((this.params.effect & $.DEFINED_EFFECT_TYPE.rotateY) == $.DEFINED_EFFECT_TYPE.rotateY)
                     figureCls += " __tl_e_rotateY";
 
-                if ((param.effect & $.DEFINED_EFFECT_TYPE.slide) == $.DEFINED_EFFECT_TYPE.slide)
+                if ((this.params.effect & $.DEFINED_EFFECT_TYPE.slide) == $.DEFINED_EFFECT_TYPE.slide)
                     figureCls += " __tl_e_slide";
 
-                if ((param.effect & $.DEFINED_EFFECT_TYPE.translate) == $.DEFINED_EFFECT_TYPE.translate)
+                if ((this.params.effect & $.DEFINED_EFFECT_TYPE.translate) == $.DEFINED_EFFECT_TYPE.translate)
                     figureCls += " __tl_e_translate";
             }
 
             return figureCls;
         }
 
-        __showErrMsg = function (msg) {
+        this.__showErrMsg = function (msg) {
             var msgDom = "<strong>Error:</strong><div class='__tl_err_msg'>" + msg + "</div>";
-            if (!!param.container.ref && param.container.ref.length > 0) {
-                param.container.ref.html("<div class='__tl_err'>" + msgDom + "</div>");
+            if (!!this.params.container.ref && this.params.container.ref.length > 0) {
+                this.params.container.ref.html("<div class='__tl_err'>" + msgDom + "</div>");
             } else {
 
                 $("body").append("<div class='__tl_err' style='position: absolute;top:20%;left:20%;z-index:10000'>" + msgDom + "</div>");
@@ -601,10 +604,15 @@
         }
 
         $(window).resize(function () {
-            __loadNodes();
+            _this.__loadNodes();
         });
 
         return this;
     };
+
+    $.UDNZTimeline = function (options) {
+        var instance = new UDNZTimelineJS(options);
+        return instance;
+    }
 
 })(jQuery);
