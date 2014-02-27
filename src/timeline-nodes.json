@@ -1,0 +1,204 @@
+{
+    "nodes": [
+        {
+            "nodeId": "node_1",
+            "title": "出生 - <span>1982</span>",
+            "date": "1982-08",
+            "percent": 0,
+            "states": {
+                "normal": {
+                    "radius": 30,
+                    "border": 15
+                },
+                "active": {
+                    "radius": 25,
+                    "border": 5
+                }
+            },
+            "description": "一个小男孩出世了，这就是我。"
+        },
+        {
+            "nodeId": "node_2",
+            "title": "我的初中 - <span>1995</span>",
+            "date": "1995/09/01 00:00:00",
+            "percent": 10,
+            "description": "念初中了。"
+        },
+        {
+            "nodeId": "node_3",
+            "title": "我的高中 - <span>1998</span>",
+            "date": "1998/09/01 00:00:00",
+            "percent": 18,
+            "description": "就读于四川省射洪县金华中学，多次荣获“年级优秀学生”、“学习标兵”称号。"
+        },
+        {
+            "nodeId": "node_4",
+            "title": "我的大学 - <span>2001</span>",
+            "date": "2001/09/01 00:00:00",
+            "percent": 25,
+            "description": "就读于哈尔滨工业大学，电气工程及其自动化系。也就是这一年，我接触并拥有了人生的第一台电脑。"
+        },
+        {
+            "nodeId": "node_5",
+            "title": "我的抉择 - <span>2002</span>",
+            "date": "2002",
+            "percent": 28,
+            "states": {
+                "normal": {
+                    "color": "#FF8800",
+                    "radius": 12,
+                    "border": 5
+                },
+                "active": {
+                    "color": "#FF8800",
+                    "radius": 15,
+                    "border": 5
+                }
+            },
+            "description": "两条路摆在我的面前：学习3D/影视/多媒体；学习网站/网络技术。一个月的学习和考虑，我慎重地选择了后者。",
+            "nodes": [
+                {
+                    "nodeId": "node_5_1",
+                    "title": "设计之路 - <span>2003.6</span>",
+                    "date": "2003/06/01 00:00:00",
+                    "percent": 42,
+                    "offsetY": "up",
+                    "states": {
+                        "normal": {
+                            "color": "#FF8800",
+                            "radius": 12,
+                            "border": 5
+                        },
+                        "active": {
+                            "color": "#FF8800",
+                            "radius": 15,
+                            "border": 5
+                        }
+                    },
+                    "description": "在ASP技术小组中负责网站平面设计，并参与多个学校及校外的网站建设工作，从此踏上设计之路。"
+                },
+                {
+                    "nodeId": "node_5_2",
+                    "title": "延续 - <span>Tomorrow</span>",
+                    "date": "2005/09/01 00:00:00",
+                    "percent": 95,
+                    "lines": {
+                        "type": "dotted",
+                        "width": 8,
+                        "stroke_dasharray": "16, 8"
+                    },
+                    "description": "设计之路并没有结束，直至如今，我的所有作品，包括自己的历次网站、博客和软件，均为自己设计、处理、输出。"
+                }
+            ]
+        },
+        {
+            "nodeId": "node_6",
+            "title": "学校社团 - <span>2004</span>",
+            "date": "",
+            "percent": 45,
+            "description": "在校期间，加入了ASP软件技术小组，参加了校科技协会的网页设计制作大赛，并获二等奖。"
+        },
+        {
+            "nodeId": "node_7",
+            "title": "第一份工作 - <span>2005</span>",
+            "date": "2005/07/01 00:00:00",
+            "percent": 50,
+            "description": "2005年毕业，就职于四川人文在线网络服务有限公司。"
+        },
+        {
+            "nodeId": "node_8",
+            "title": "第二份工作 - <span>2008</span>",
+            "date": "2008/11/01 00:00:00",
+            "percent": 65,
+            "description": "就职于华诚伟业投资集团子公司华诚讯通信息技术有限公司。"
+        },
+        {
+            "nodeId": "node_9",
+            "title": "物联网之路 - <span>2009</span>",
+            "date": "2009/11/01 00:00:00",
+            "percent": 70,
+            "states": {
+                "normal": {
+                    "color": "#FF8800",
+                    "radius": 12,
+                    "border": 5
+                },
+                "active": {
+                    "color": "#FF8800",
+                    "radius": 15,
+                    "border": 5
+                }
+            },
+            "description": "进入物联网领域，开始软硬件集合开发。",
+            "nodes": [
+                {
+                    "nodeId": "node_9_1",
+                    "title": "技能拓展",
+                    "date": "",
+                    "percent": 85,
+                    "description": "自学尝试 Java、C++，尝试 Flex、Android 开发。"
+                },
+                {
+                    "nodeId": "node_9_2",
+                    "title": "延续 - <span>Tomorrow</span>",
+                    "date": "2005/09/01 00:00:00",
+                    "percent": 95,
+                    "lines": {
+                        "type": "dotted",
+                        "width": 8,
+                        "stroke_dasharray": "16, 8"
+                    },
+                    "description": "作为架构师，必将涉猎多种语言、多个领域……"
+                }
+            ]
+        },
+        {
+            "nodeId": "node_10",
+            "title": "第三份工作 - <span>2011</span>",
+            "date": "2011/08/20 00:00:00",
+            "percent": 80,
+            "description": "就职于航天数联，时任高级软件工程师。"
+        },
+        {
+            "nodeId": "node_11",
+            "title": "架构师之路 - <span>2013</span>",
+            "date": "2013/01",
+            "percent": 80,
+            "states": {
+                "normal": {
+                    "color": "#FF8800",
+                    "radius": 12,
+                    "border": 5
+                },
+                "active": {
+                    "color": "#FF8800",
+                    "radius": 15,
+                    "border": 5
+                }
+            },
+            "description": "1月起，正式被任命为“软件架构设计师”。"
+        },
+        {
+            "nodeId": "node_12",
+            "title": "未来 - <span>Future</span>",
+            "date": "2012/12/20 00:00:00",
+            "percent": 100,
+            "lines": {
+                "type": "dotted",
+                "width": 8,
+                "stroke_dasharray": "16, 8"
+            },
+            "states": {
+                "normal": {
+                    "radius": 30,
+                    "border": 15
+                },
+                "active": {
+                    "radius": 25,
+                    "border": 5
+                }
+            },
+            "description": "架构师之路必将越走越宽广，越走越精彩！"
+        }
+    ]
+}

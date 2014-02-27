@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Demo of TimelineJS by udnz.com</title>
+    <meta charset="utf-8">
+    <style>
+        body {
+            font-family: Arial;
+            padding: 2em;
+            margin: 1em;
+        }
+    </style>
+    <link rel="stylesheet" href="../src/css/timeline.css"/>
+    <script src="jquery-1.10.2.min.js"></script>
+    <script src="../src/timeline.js?v=1.0.0.1"></script>
+    <script>
+        $(function () {
+            $.UDNZTimeline({
+                'id': 'my_timeline', // the ID of timeline instance.
+                'data_url': '../src/timeline-nodes.json',
+                'container': {
+                    'id': 'demo_1_container' // the ID of container DOM.
+                }
+            }).Draw();
+
+            $.UDNZTimeline({
+                'id': 'my_timeline_2', // the ID of timeline instance.
+                'data_url': '../src/timeline-nodes.json',
+                'container': {
+                    'id': 'demo_2_container_2' // the ID of container DOM.
+                }
+            }).Draw()
+        });
+    </script>
+    <meta name="author" content="udnz.com"/>
+</head>
+<body>
+<h1>Demo 1</h1>
+
+<div id="demo_1_container"></div>
+
+<h1>Demo 2</h1>
+
+<div id="demo_2_container_2"></div>
+</body>
+</html>
