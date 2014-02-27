@@ -208,7 +208,7 @@
                         this._cache.data = data;
                         this.__drawNodes(data);
                     }, error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        this.__showErrMsg("Data error, Please check the file: \"" + this.url + "\" !");
+                        this.__showErrMsg("Data error, Please check the file/url: \"" + this.params.data_url + "\" !<br />Note: the page must be hosted (e.g. http://,https://..) rather than open it via the protocol \"file:///\".");
                     }});
                 }
             } else {
