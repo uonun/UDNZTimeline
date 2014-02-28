@@ -73,31 +73,19 @@ Like other javascript librarys, you can define an `option` in JSON as well. Here
 ```Javascript
     // default values
     var defaults = {
-        "_id": null,
         "data_url": "Data/timeline-nodes.json",
-        "_css_class": "__tl_svg",
         "container": {
             "id": "timeline_container",
-            "_ref": null,
             "width": 0,
             "height": 250
         },
         "figure": {
-            "_id": "",
-            "_ref": null,
             "offset": {
                 x: 0,
                 y: 0
             }
         },
         "dots": {
-            "_required": {
-                "css": {
-                    "master": "__tl_master-dot",
-                    "branch": "__tl_branch-dot",
-                    "branching": "__tl_branching-dot"
-                }
-            },
             "states": {
                 "normal": {
                     "_stateId": 0,
@@ -109,18 +97,13 @@ Like other javascript librarys, you can define an `option` in JSON as well. Here
                 "active": {
                     "_stateId": 1,
                     "color": "#ff8800",
+                    "color_background": "#fff000",
                     "radius": 15,
                     "border": 5
                 }
             }
         },
         "lines": {
-            "_required": {
-                "css": {
-                    "master": "__tl_solid-line __tl_master",
-                    "branch": "__tl_solid-line __tl_branch"
-                }
-            },
             "width": 8,
             "color": "#C3C3C3",
             "color_dotted": "#C3C3C3",
@@ -130,7 +113,8 @@ Like other javascript librarys, you can define an `option` in JSON as well. Here
         },
         "board": {
             "width": 220,
-            "color_bg": "#ff8800",
+            "color_background": "#ffffff",
+            "color_border":"#ff8800",
             "margin": 10,
             "border": 5,
             "spliter_width": 3
@@ -151,41 +135,35 @@ Like other javascript librarys, you can define an `option` in JSON as well. Here
 ####Meanings
 Option  | Description
 ------------- | -------------
-option._id  | 
-option.data_url  | 
-option._css_class | 
-option.container.id | 
-option.container._ref | 
-option.container.width | 
-option.container.height | 
-option.figure._id | 
-option.figure._ref | 
-option.figure.offset.x | 
-option.figure.offset.y | 
-option.dots._required.* | 
-option.dots.states.normal._stateId | 
-option.dots.states.normal.color | 
-option.dots.states.normal.color_background | 
-option.dots.states.normal.radius | 
-option.dots.states.normal.border | 
-option.dots.states.active._stateId | 
-option.dots.states.active.color | 
-option.dots.states.active.color_background | 
-option.dots.states.active.radius | 
-option.dots.states.active.border | 
-option.lines._required.* | 
-option.lines.width | 
-option.lines.color | 
-option.lines.color_dotted | 
-option.lines.bezier | 
-option.lines.stoke_dasharray | 
-option.lines.branchOffsetY | 
-option.board.width | 
-option.board.color_bg | 
-option.board.margin | 
-option.board.border | 
-option.board.spliter_width | 
-option.effect | 
+option.data_url  | **REQUIRED**. The path of JSON data. Supporting both relative or absolute URL.
+option.container.id | **REQUIRED**. The element ID of containner.
+option.container.width | The width of timeline.
+option.container.height | The height of timeline.
+option.figure.offset.x | Global horizontal offset.
+option.figure.offset.y | Global vertical offset.
+*option.dots.states.normal._stateId* | Internal, please ignore it.
+option.dots.states.normal.color | The color of nodes.
+option.dots.states.normal.color_background | The background color of nodes.
+option.dots.states.normal.radius | The radius of nodes.
+option.dots.states.normal.border | The border of nodes.
+*option.dots.states.active._stateId* | Internal, please ignore it.
+option.dots.states.active.color | The color of nodes when mouse over.
+option.dots.states.active.color_background | The background color of nodes when mouse over.
+option.dots.states.active.radius | The radius of nodes when mouse over.
+option.dots.states.active.border | The border of nodes when mouse over.
+option.lines.width | The width of lines.
+option.lines.color | The color of solid lines.
+option.lines.color_dotted | The color of dotted lines.
+option.lines.color_bezier | The color of bezier lines.
+option.lines.stoke_dasharray | The length of real and imaginary parts in dotted lines.
+option.lines.branchOffsetY | The vertical offset of branches.
+option.board.width | The width of detail board.
+option.board.color_background | The background color of detail board.
+option.board.color_border | The border color of detail board.
+option.board.margin | The margin on left/right between the detail board and node.
+option.board.border | The border width of detail board.
+option.board.spliter_width | The width of spliter in detail board.
+option.effect | The effect of displaying detail board.
 
 
 ###Data structure
