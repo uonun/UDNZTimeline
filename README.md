@@ -285,3 +285,12 @@ $.UDNZTimeline(*options*).Draw().ShowNode('node_5',500);
 ```
 
 * Perhaps you have noticed that the callback function appear to be earlier than the actual function calls `ShowNodeCB`/`HideNodeCB`, which is normal and correct. The reason why this is so, because the methods `ShowNodeCB`/`HideNodeCB` just specify an animation "Show"/"Hide", will not do any real work which needs time.
+
+## Change Log
+###### v1.0 (2/28/2014)
+*	First release
+	
+
+## License
+UDNZTimeline by Austin Luo (uonun) is licensed under a GPL License. Really all that's important to me is that please [let me know](http://work.udnz.com/Contact.aspx "contact") if you find any bug or improvement.
+
