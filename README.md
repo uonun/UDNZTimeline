@@ -90,14 +90,14 @@ Like other javascript librarys, you can define an `option` in JSON as well. Here
                 "normal": {
                     "_stateId": 0,
                     "color": "#C3C3C3",
-                    "color_background": "#fff000",
+                    "color_background": "#ffffff",
                     "radius": 12,
                     "border": 12
                 },
                 "active": {
                     "_stateId": 1,
                     "color": "#ff8800",
-                    "color_background": "#fff000",
+                    "color_background": "#ffffff",
                     "radius": 15,
                     "border": 5
                 }
@@ -113,8 +113,8 @@ Like other javascript librarys, you can define an `option` in JSON as well. Here
         },
         "board": {
             "width": 220,
-            "color_background": "#ffffff",
-            "color_border":"#ff8800",
+            "color_background": "#FFFFFF",
+            "color_border": "#ff8800",
             "margin": 10,
             "border": 5,
             "spliter_width": 3
