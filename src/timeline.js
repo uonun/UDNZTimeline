@@ -10,6 +10,9 @@
  *  },
  * */
 (function ($) {
+
+    $._this = null;
+
     $.DEFINED_EFFECT_TYPE = {
         curt: 1,
         fade: 2,
@@ -19,28 +22,19 @@
         rotateY: 32
     };
 
-    $._this = null;
-
-    var defaults = {
-        "id": null,
-        "data_url": "Data/timeline-nodes.json",
-        "css_class": "__tl_svg",
+    // private and readonly options.
+    var _options = {
+        "_id": null,
+        "_css_class": "__tl_svg",
         "container": {
-            "id": "timeline_container", // the ID of container DOM.
-            "ref": null,
-            "width": 0,
-            "height": 250
+            "_ref": null
         },
         "figure": {
-            "id": "",
-            "ref": null,
-            "offset": {
-                x: 0,
-                y: 0
-            }
+            "_id": "",
+            "_ref": null
         },
         "dots": {
-            "required": {
+            "_required": {
                 "css": {
                     "master": "__tl_master-dot",
                     "branch": "__tl_branch-dot",
@@ -49,27 +43,56 @@
             },
             "states": {
                 "normal": {
-                    "stateId": 0,
+                    "_stateId": 0
+                },
+                "active": {
+                    "_stateId": 1
+                }
+            }
+        },
+        "lines": {
+            "_required": {
+                "css": {
+                    "master": "__tl_solid-line __tl_master",
+                    "branch": "__tl_solid-line __tl_branch"
+                }
+            }
+        }
+    };
+    var const_dataId_spliter = ",";
+    var dotDomTag = "dot";
+    var defaults = {
+        "data_url": "Data/timeline-nodes.json",
+        "container": {
+            "id": "timeline_container",
+            "width": 0,
+            "height": 250
+        },
+        "figure": {
+            "offset": {
+                x: 0,
+                y: 0
+            }
+        },
+        "dots": {
+            "states": {
+                "normal": {
+                    "_stateId": 0,
                     "color": "#C3C3C3",
                     "color_background": "#fff000",
                     "radius": 12,
                     "border": 12
                 },
                 "active": {
-                    "stateId": 1,
+                    "_stateId": 1,
                     "color": "#ff8800",
+                    "color_background": "#fff000",
                     "radius": 15,
                     "border": 5
                 }
             }
         },
         "lines": {
-            "required": {
-                "css": {
-                    "master": "__tl_solid-line __tl_master",
-                    "branch": "__tl_solid-line __tl_branch"
-                }
-            },
             "width": 8,
             "color": "#C3C3C3",
             "color_dotted": "#C3C3C3",
@@ -86,13 +109,11 @@
         },
         "effect": $.DEFINED_EFFECT_TYPE.fade | $.DEFINED_EFFECT_TYPE.translate
     };
-    var const_dataId_spliter = ",";
-    var dotDomTag = "dot";
 
     UDNZTimelineJS = function (options) {
         var _this = $._this = this;
-        this.params = $.extend(true, {}, defaults, options || {});
-        this.params.id = "TimelineJS_" + parseInt(Math.random() * 1000000000);
+        this.params = $.extend(true, {}, defaults, options || {}, _options || {});
+        this.params._id = "TimelineJS_" + parseInt(Math.random() * 1000000000);
         this._lastPoint = {x: 0, y: 0};
         this._cache = {data: null};
 
@@ -103,32 +124,32 @@
                 return null;
             }
 
-            this.params.container.ref = container;
+            this.params.container._ref = container;
 
             // prepare the svg.
             var svg = this.__createElementNS(document, 'svg', 'http://www.w3.org/2000/svg');
             if (!!svg) {
-                svg.setAttribute("id", this.params.id);
-                svg.setAttribute("class", this.params.css_class);
+                svg.setAttribute("id", this.params._id);
+                svg.setAttribute("class", this.params._css_class);
                 svg.setAttribute("height", this.params.container.height);
                 svg.setAttribute("width", "100%");
                 svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
 
-                this.params.figure.id = this.__getPrivateDomId("svg_container");
+                this.params.figure._id = this.__getPrivateDomId("svg_container");
                 // generate figure container.
                 container.prepend("<div " +
-                    "id='" + this.params.figure.id + "' " +
+                    "id='" + this.params.figure._id + "' " +
                     "class='" + this.__getEffectStyle() + "'" +
                     "style='position: relative; overflow: hidden;'" +
                     "></div>");
 
                 // get the DOM after generating.
-                this.params.figure.ref = $("#" + this.params.figure.id);
-                this.params.figure.ref.prepend(svg);
+                this.params.figure._ref = $("#" + this.params.figure._id);
+                this.params.figure._ref.prepend(svg);
 
                 // generate detail dashboard.
                 // the svg must be the first child of <figure> for we are using absolute position by <figure>.
-                this.params.figure.ref.append(
+                this.params.figure._ref.append(
                     "<div id='" + this.params.container.id + "_board' class='__tl_info'><header></header><div class='__tl_detail'></div></div>"
                 );
 
@@ -182,19 +203,19 @@
 
         this.__loadNodes = function () {
             if (!!!this.params.container.width || isNaN(this.params.container.width)) {
-                this.params.container.width = parseInt(this.params.container.ref.width());
+                this.params.container.width = parseInt(this.params.container._ref.width());
             }
             else {
-                this.params.container.ref.css("width", this.params.container.width + "px");
+                this.params.container._ref.css("width", this.params.container.width + "px");
             }
 
-            var svg = $("#" + this.params.id)[0];
+            var svg = $("#" + this.params._id)[0];
             if (!!svg) {
                 svg.setAttribute("height", this.params.container.height);
                 svg.setAttribute("width", this.params.container.width);
 
                 // remove all old stuff.
-                this.params.container.ref.find(".__tl_removable").remove();
+                this.params.container._ref.find(".__tl_removable").remove();
 
                 // the first point
                 this._lastPoint.x = 0;
@@ -217,7 +238,7 @@
         };
 
         this.__drawNodes = function (data) {
-            var svg = $("#" + this.params.id)[0];
+            var svg = $("#" + this.params._id)[0];
             for (var idx in data.nodes) {
                 var node = data.nodes[idx];
                 var pFrom = {
@@ -231,7 +252,7 @@
 
                 this.__drawLine({
                     svg: svg,
-                    cls: this.params.lines.required.css.master,
+                    cls: this.params.lines._required.css.master,
                     from: pFrom,
                     to: pTo,
                     node: node
@@ -240,7 +261,7 @@
                 var dotCss = "";
                 // draw branches
                 if (!!node.nodes) {
-                    dotCss += this.params.dots.required.css.branching + " ";
+                    dotCss += this.params.dots._required.css.branching + " ";
                     var branchOffsetY = this.params.lines.branchOffsetY;
                     var pFrom2 = {
                         x: pTo.x,
@@ -274,17 +295,17 @@
                         // must use the method "call" to rewrite "this" as current instance of UDNZTimelineJS while not window.
                         method.call(this, {
                             svg: svg,
-                            cls: this.params.lines.required.css.branch,
+                            cls: this.params.lines._required.css.branch,
                             from: pFrom2,
                             to: pToChild,
                             node: item
                         });
                         var dataId = idx + const_dataId_spliter + i;
-                        this.__drawHotDot(dataId, this.params.dots.required.css.branch, pToChild);
+                        this.__drawHotDot(dataId, this.params.dots._required.css.branch, pToChild);
                         pFrom2 = pToChild;
                     }
                 }
-                dotCss += this.params.dots.required.css.master;
+                dotCss += this.params.dots._required.css.master;
 
                 // draw trunk
                 this.__drawHotDot(idx, dotCss, pTo);
@@ -321,7 +342,7 @@
                 node: node
             });
 
-            this.params.figure.ref.append("<" + dotDomTag + " id='" + id + "' " +
+            this.params.figure._ref.append("<" + dotDomTag + " id='" + id + "' " +
                 "class='" + cssName + " __tl_removable' " +
                 "dataId='" + dataId + "' " +
                 "x='" + to.x + "' " +
@@ -473,7 +494,7 @@
             div.removeClass("__tl_showOnLeft").removeClass("__tl_showOnRight");
 
             // set the state of other dots to normal
-            this.params.figure.ref.find(".__tl_dot_current").each(function () {
+            this.params.figure._ref.find(".__tl_dot_current").each(function () {
                 $(this).removeClass("__tl_dot_current").attr("style", _this.__getHotDotStyle({
                     dom: this,
                     state: _this.__getHotDotState(0, this, null),
@@ -511,7 +532,7 @@
         };
 
         this.__getPrivateDomId = function (domId) {
-            return this.params.id + "_" + domId;
+            return this.params._id + "_" + domId;
         }
 
         this.__applyOffset = function (pSrc, offset) {
@@ -534,7 +555,7 @@
             var node = args.node;
 
             if (!!node && !!node.states) {
-                state = $.extend(true, {}, args.state, args.state.stateId == 1 ? node.states.active : node.states.normal || {});
+                state = $.extend(true, {}, args.state, args.state._stateId == _options.dots.states.active._stateId ? node.states.active : node.states.normal || {});
             }
 
             var dotStyle =
@@ -555,7 +576,7 @@
         }
 
         /*
-         * @stateId: 0 = normal, 1 = active
+         * @_stateId: normal = _options.dots.states.normal._stateId, active = _options.dots.states.active._stateId
          * */
         this.__getHotDotState = function (stateId, dom, node) {
             if (!!!node) {
@@ -572,7 +593,7 @@
             // fill the required/defined member.
             states = $.extend(true, {}, this.params.dots.states, states || {});
 
-            return stateId == 1 ? states.active : states.normal;
+            return stateId == _options.dots.states.active._stateId ? states.active : states.normal;
         }
 
         this.__getEffectStyle = function () {
@@ -610,8 +631,8 @@
 
         this.__showErrMsg = function (msg) {
             var msgDom = "<strong>Error:</strong><div class='__tl_err_msg'>" + msg + "</div>";
-            if (!!this.params.container.ref && this.params.container.ref.length > 0) {
-                this.params.container.ref.html("<div class='__tl_err'>" + msgDom + "</div>");
+            if (!!this.params.container._ref && this.params.container._ref.length > 0) {
+                this.params.container._ref.html("<div class='__tl_err'>" + msgDom + "</div>");
             } else {
 
                 $("body").append("<div class='__tl_err' style='position: absolute;top:20%;left:20%;z-index:10000'>" + msgDom + "</div>");
