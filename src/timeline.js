@@ -1,14 +1,9 @@
 /*
- * the structure of each note:
- *  {
- *      "nodeId":"nodeid_n",
- *      "title": "",
- *      "date": "2001/09/01 00:00:00",
- *      "percent":20,            // the location of current note in the timeline.
- *      "offsetY": "up",         // up, down or number
- *      "description": ""
- *  },
- * */
+ * timeline.js
+ * @version		1.0
+ * @copyright	Austin Luo (http://work.udnz.com)
+ * @homepage    https://github.com/uonun/UDNZTimeline
+ */
 (function ($) {
 
     $._this = null;
@@ -79,30 +74,31 @@
                 "normal": {
                     "_stateId": 0,
                     "color": "#C3C3C3",
-                    "color_background": "#fff000",
+                    "color_background": "#ffffff",
                     "radius": 12,
                     "border": 12
                 },
                 "active": {
                     "_stateId": 1,
                     "color": "#ff8800",
-                    "color_background": "#fff000",
+                    "color_background": "#ffffff",
                     "radius": 15,
                     "border": 5
                 }
-            }
+            },
+            "offsetY": 50
         },
         "lines": {
             "width": 8,
             "color": "#C3C3C3",
             "color_dotted": "#C3C3C3",
             "color_bezier": "#C3C3C3",
-            "stroke_dasharray": "16, 8",
-            "branchOffsetY": 50
+            "stroke_dasharray": "16, 8"
         },
         "board": {
             "width": 220,
-            "color_bg": "#ff8800",
+            "color_background": "#FFFFFF",
+            "color_border": "#ff8800",
             "margin": 10,
             "border": 5,
             "spliter_width": 3
@@ -117,6 +113,9 @@
         this._lastPoint = {x: 0, y: 0};
         this._cache = {data: null};
 
+        /*
+         * Draw the timeline.
+         * */
         this.Draw = function () {
             var container = $("#" + this.params.container.id);
             if (container.length == 0) {
@@ -160,6 +159,11 @@
             return this;
         };
 
+        /*
+         * Show a specified node.
+         * @nodeId: the ID of node.
+         * @delay: the delay time in ms.
+         * */
         this.ShowNode = function (nodeId, delay) {
             var internalId = "#" + this.__getPrivateDomId(nodeId);
             if (!!delay) {
@@ -171,6 +175,11 @@
             return this;
         }
 
+        /*
+         * Show a specified node without callback.
+         * @nodeId:
+         * @callback: function(callback_data) {...}
+         * */
         this.ShowNodeCB = function (nodeId, callback, callback_data) {
             this.ShowNode(nodeId);
             try {
@@ -181,6 +190,10 @@
             return this;
         };
 
+        /*
+         * Hide all nodes with delay.
+         * @delay: the time of delay, in ms.
+         * */
         this.HideNode = function (delay) {
             if (!!delay) {
                 setTimeout("__hideDetail()", delay);
@@ -191,6 +204,10 @@
             return this;
         }
 
+        /*
+         * Hide all nodes with callback.
+         * @callback: function(callback_data) {...}
+         * */
         this.HideNodeCB = function (callback, callback_data) {
             this.HideNode();
             try {
@@ -262,7 +279,7 @@
                 // draw branches
                 if (!!node.nodes) {
                     dotCss += this.params.dots._required.css.branching + " ";
-                    var branchOffsetY = this.params.lines.branchOffsetY;
+                    var branchOffsetY = this.params.dots.offsetY;
                     var pFrom2 = {
                         x: pTo.x,
                         y: pTo.y
@@ -375,7 +392,9 @@
             {
                 var lineStyle = "";
 
-                if (!!node && !!node.lines) {
+                if ((!!node && !!node.lines)
+                    || (!!this.params.lines && this.params.lines.type === "dotted")
+                    ) {
                     node.lines = $.extend(true, {}, this.params.lines, node.lines || {});
                     if (!!node.lines.type && node.lines.type === "dotted") {
                         lineStyle += "stroke-dasharray:" + node.lines.stroke_dasharray + ";";
@@ -482,9 +501,12 @@
                     }));
 
                     // set detail board
-                    $(".__tl_info").css("width", board_cfg.width + "px")
-                        .css("background-color", board_cfg.color_bg)
+                    div.css("width", board_cfg.width + "px")
+                        .css("background-color", board_cfg.color_border)
                         .css("padding", board_cfg.border + "px");
+
+                    div.find("header").css("background-color", board_cfg.color_background);
+                    div.find(".__tl_detail").css("background-color", board_cfg.color_background);
                 }
             }
         };
@@ -562,6 +584,7 @@
                 "width:" + parseInt(state.radius) * 2 + "px;" +
                     "height:" + parseInt(state.radius) * 2 + "px;" +
                     "margin:" + parseInt(state.radius) * -1 + "px 0 0 " + parseInt(state.radius) * -1 + "px;" +
+                    "background-color:" + state.color_background + ";" +
                     "border:" + parseInt(state.border) + "px solid " + state.color + ";";
 
             if (!!!position) {

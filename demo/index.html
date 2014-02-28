@@ -41,8 +41,6 @@
     <script src="scripts/jquery-1.10.2.min.js"></script>
     <script src="../src/timeline.js?v=1.0.0.1"></script>
     <script>
-        var line3;
-
         $(function () {
             $(".d1_show").each(function () {
                 $(this).val($(this).attr("data"));
@@ -60,11 +58,33 @@
 </head>
 <body>
 <section>
+
+    <h1>UDNZTimeline</h1>
+
+
+    <a href="https://github.com/uonun/UDNZTimeline" target="_blank"><img src="images/github.jpg" border="0"
+                                                                         align="right"></a>
+
+    <p>A light javascript library supporting multiple browsers to draw smart, beauty and dynamic timelines.</p>
+
+    <h2>
+        <a name="overview" class="anchor" href="#overview"><span class="octicon octicon-link"></span></a>Overview</h2>
+    <ul>
+        <li>It is a light javascript library.</li>
+        <li>For helping you to build a smart, beauty and dynamic timeline.</li>
+        <li>Based on HTML5, CSS3 and jQuery.</li>
+        <li>Supporting Chrome, Firefox, Opera, Safari, and IE 9+ on PC/MAC and mobile.<br/>
+            <img src="images/browsers_32x32.png" vspace="5" border="0"></li>
+    </ul>
+
+
+</section>
+<section>
     <h1>Demo 1: Basically</h1>
 
     <div id="demo_1_container"></div>
     <div>
-Please move your mouse over the nodes and enjoy it!
+        Please move your mouse over the nodes and enjoy it!
 
         <strong>Features:</strong>
         <ul class="features">
@@ -123,7 +143,6 @@ Please move your mouse over the nodes and enjoy it!
                 "states": {
                     "normal": {
                         "color": "#0088ff",
-                        "color_background": "#ff0000",
                         "radius": 12,
                         "border": 6
                     },
@@ -159,7 +178,6 @@ Please move your mouse over the nodes and enjoy it!
                 "states": {
                     "normal": {
                         "color": "#0088ff",
-                        "color_background": "#ff0000",
                         "radius": 12,
                         "border": 6
                     },
@@ -256,10 +274,12 @@ Please move your mouse over the nodes and enjoy it!
                 "height": 350
             },
             "effect": $.DEFINED_EFFECT_TYPE.rotateY | $.DEFINED_EFFECT_TYPE.slide
-        }).Draw().ShowNode('node_5',500);
+        }).Draw().ShowNode('node_5', 500);
     </script>
 
 </section>
-
+<div style="padding: 2em;text-align: center"><p>UDNZTimeline by Austin Luo (uonun) is licensed under a GPL License.<br/>Really
+    all that's important to me is that please <a href="http://work.udnz.com/Contact.aspx" title="contact">let me
+        know</a> if you find any bug or improvement.</p></div>
 </body>
 </html>

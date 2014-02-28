@@ -46,7 +46,6 @@
                     "states": {
                         "normal": {
                             "color": "#DDDDDD",
-                            "color_background": "#ff0000",
                             "radius": 12,
                             "border": 6
                         }
@@ -72,7 +71,8 @@
             ],
             "board": {
                 "width":280,
-                "color_bg": "#0088FF",
+                "color_background": "#eeddff",
+                "color_border": "#8800ff",
                 "margin": 10,
                 "border": 5,
                 "spliter_width": 3
@@ -80,12 +80,13 @@
             "states": {
                 "normal": {
                     "color": "#0088FF",
-                    "color_background": "#ff0000",
+                    "color_background": "#003366",
                     "radius": 15,
                     "border": 5
                 },
                 "active":{
                     "color": "#0088FF",
+                    "color_background": "#fff000",
                     "border": 2
                 }
             }
