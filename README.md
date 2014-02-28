@@ -4,7 +4,9 @@
 * It is a light javascript library.
 * For helping you to build a smart, beauty and dynamic timeline.
 * Based on HTML5, CSS3 and jQuery.
-* Supporting Chrome, Opera, Safari, and IE 9+ on PC/MAC and mobile(IPad, Android, Windows Phone).
+* Supporting Chrome, Firefox, Opera, Safari, and IE 9+ on PC/MAC and mobile (IPad, Android, Windows Phone).
+
+![Supporting Chrome, Firefox, Opera, Safari, and IE 9+ on PC/MAC and mobile](http://work.udnz.com/UDNZTimeline/demo/images/browsers_32x32.png)
 
 ##Demo
 * http://work.udnz.com/UDNZTimeline/Demo/
