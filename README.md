@@ -137,35 +137,92 @@ Option  | Description
 ------------- | -------------
 option.data_url  | **REQUIRED**. The path of JSON data. Supporting both relative or absolute URL.
 option.container.id | **REQUIRED**. The element ID of containner.
-option.container.width | The width of timeline.
-option.container.height | The height of timeline.
-option.figure.offset.x | Global horizontal offset.
-option.figure.offset.y | Global vertical offset.
-*option.dots.states.normal._stateId* | Internal, please ignore it.
-option.dots.states.normal.color | The color of nodes.
-option.dots.states.normal.color_background | The background color of nodes.
-option.dots.states.normal.radius | The radius of nodes.
-option.dots.states.normal.border | The border of nodes.
-*option.dots.states.active._stateId* | Internal, please ignore it.
-option.dots.states.active.color | The color of nodes when mouse over.
-option.dots.states.active.color_background | The background color of nodes when mouse over.
-option.dots.states.active.radius | The radius of nodes when mouse over.
-option.dots.states.active.border | The border of nodes when mouse over.
-option.lines.width | The width of lines.
-option.lines.color | The color of solid lines.
-option.lines.color_dotted | The color of dotted lines.
-option.lines.color_bezier | The color of bezier lines.
-option.lines.stoke_dasharray | The length of real and imaginary parts in dotted lines.
-option.lines.branchOffsetY | The vertical offset of branches.
-option.board.width | The width of detail board.
-option.board.color_background | The background color of detail board.
-option.board.color_border | The border color of detail board.
-option.board.margin | The margin on left/right between the detail board and node.
-option.board.border | The border width of detail board.
-option.board.spliter_width | The width of spliter in detail board.
-option.effect | The effect of displaying detail board.
+option.container.width | [Optional] The width of timeline. Number, in `px`.
+option.container.height | [Optional] The height of timeline. Number, in `px`.
+option.figure.offset.x | [Optional] Global horizontal offset. Number, in `px`.
+option.figure.offset.y | [Optional] Global vertical offset. Number, in `px`.
+*option.dots.states.normal._stateId* | [Optional] Internal, please ignore it.
+option.dots.states.normal.color | [Optional] The color of nodes.
+option.dots.states.normal.color_background | [Optional] The background color of nodes.
+option.dots.states.normal.radius | [Optional] The radius of nodes. Number, in `px`.
+option.dots.states.normal.border | [Optional] The border of nodes. Number, in `px`.
+*option.dots.states.active._stateId* | [Optional] Internal, please ignore it.
+option.dots.states.active.color | [Optional] The color of nodes when mouse over.
+option.dots.states.active.color_background | [Optional] The background color of nodes when mouse over.
+option.dots.states.active.radius | [Optional] The radius of nodes when mouse over. Number, in `px`.
+option.dots.states.active.border | [Optional] The border of nodes when mouse over. Number, in `px`.
+option.lines.width | [Optional] The width of lines. Number, in `px`.
+option.lines.color | [Optional] The color of solid lines.
+option.lines.color_dotted | [Optional] The color of dotted lines.
+option.lines.color_bezier | [Optional] The color of bezier lines.
+option.lines.stoke_dasharray | [Optional] The length of real and imaginary parts in dotted lines. Numbers, in `px`. e.g. `16 8`.
+option.lines.branchOffsetY | [Optional] The vertical offset of branches. Number, in `px`.
+option.board.width | [Optional] The width of detail board. Number, in `px`.
+option.board.color_background | [Optional] The background color of detail board.
+option.board.color_border | [Optional] The border color of detail board.
+option.board.margin | [Optional] The margin on left/right between the detail board and node. Number, in `px`.
+option.board.border | [Optional] The border width of detail board. Number, in `px`.
+option.board.spliter_width | [Optional] The width of spliter in detail board. Number, in `px`.
+option.effect | [Optional] The effect of displaying detail board. See: `$.DEFINED_EFFECT_TYPE`
 
 
 ###Data structure
 The data should be a relative or absolute URL, it will be loaded by Ajax while drawing the timeline.
+Here it is:
+
+####Structure
+
+```Javascript
+{
+    "nodes": [
+        {
+            "nodeId": // string,
+            "title": // string,
+            "date": // string in format of date and time,
+            "percent": // int,
+            "description": // string,
+            "states": // JSON object,
+            "lines": // JSON object,
+            "board": // JSON object,
+            "nodes":[
+                {
+                    "nodeId": // string,
+                    "title": // string,
+                    "date": // string in format of date time.,
+                    "percent": // int,
+                    "description": // string,
+                    "offsetY": // "up" or int,
+                    "states": // JSON object,
+                    "lines": // JSON object,
+                    "board": // JSON object,
+                },
+                // other nodes
+            ]
+        },
+        // other nodes
+    ]
+}
+```
+
+####Meanings
+Data node  | Description
+------------- | -------------
+nodes.nodeId | **REQUIRED** Globally unique ID, levels ignored.
+nodes.title | **REQUIRED** The title which is displayed on the board as `header`
+nodes.date | [Optional] Not used so far.
+nodes.percent | **REQUIRED** The position of node.  Number, between 0 and 100. [0,100]
+nodes.description | **REQUIRED** The detail message which is displayed on the board as `content`
+nodes.states | [Optional] Same as `option.dots.states`
+nodes.lines | [Optional] Same as `option.lines`
+nodes.board | [Optional] Same as `option.board`
+nodes.nodes | [Optional] Array of branch nodes. They will be displayed as a branch.
+nodes.nodes.nodeId | **REQUIRED if `nodes.nodes` exists** Same as `nodes.nodeId`
+nodes.nodes.title | **REQUIRED if `nodes.nodes` exists** Same as `nodes.title`
+nodes.nodes.date | [Optional] Same as `nodes.date`
+nodes.nodes.percent | **REQUIRED if `nodes.nodes` exists** Same as `nodes.percent`
+nodes.nodes.description | **REQUIRED if `nodes.nodes` exists** Same as `nodes.description`
+nodes.nodes.offsetY | [Optional] Same as `nodes.offsetY`. Number, in `px`, or string `up`.
+nodes.nodes.states | [Optional] Same as `option.dots.states`
+nodes.nodes.lines | [Optional] Same as `option.lines`
+nodes.nodes.board | [Optional] Same as `option.board`
 
