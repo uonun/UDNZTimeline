@@ -1,21 +1,21 @@
-#UDNZTimeline
+# UDNZTimeline
 
-##Overview
+## Overview
 * It is a light javascript library.
 * For helping you to build a smart, beauty and dynamic timeline.
 * Based on HTML5, CSS3 and jQuery.
 * Supporting Chrome, Firefox, Opera, Safari, and IE 9+ on PC/MAC and mobile (IPad, Android, Windows Phone).
 
-![Supporting Chrome, Firefox, Opera, Safari, and IE 9+ on PC/MAC and mobile](http://work.udnz.com/UDNZTimeline/demo/images/browsers_32x32.png)
+![Supporting Chrome, Firefox, Opera, Safari, and IE 9+ on PC/MAC and mobile](./demo/images/browsers_32x32.png)
 
-##Demo
-* http://work.udnz.com/UDNZTimeline/Demo/
+## Demo
+* http://uonun.github.io/UDNZTimeline/demo/index.html
 
-##Requirements
+## Requirements
 * Javascript with jQuery.
 * Modern browser which is supporting HTML5 and CSS3.
 
-##Usage
+## Usage
 1. Include `timeline.css`, `jQuery.min.js` and `timeline.js`
 
 		<link rel="stylesheet" href="path/to/timeline.css"/>
@@ -43,7 +43,8 @@
 
 5. Enjoy it!
 
-##Sample
+## Sample
+
 ```HTML
 <!DOCTYPE html>
 <html>
@@ -69,11 +70,13 @@
 </html>
 ```
 
-##API
-###Options
+## API
+### Options
+
 Like other javascript librarys, you can define an `option` in JSON as well. Here are the structure and meanings:
 
-####Structure and default values
+#### Structure and default values
+
 ```Javascript
     // default values
     var defaults = {
@@ -139,10 +142,12 @@ Like other javascript librarys, you can define an `option` in JSON as well. Here
 ```
 
 **Tips:**
+
 * Some of the `effect` defined in `$.DEFINED_EFFECT_TYPE` could be combined.
 * Bezier lines could not be dotted.
 
-####Meanings
+#### Meanings
+
 Option  | Description
 ------------- | -------------
 option.data_url  | **REQUIRED**. The path of JSON data. Supporting both relative or absolute URL.
@@ -177,11 +182,12 @@ option.board.spliter_width | [Optional] The width of spliter in detail board. Nu
 option.effect | [Optional] The effect of displaying detail board. See: `$.DEFINED_EFFECT_TYPE`
 
 
-###Data structure
+### Data structure
+
 The data should be a relative or absolute URL, it will be loaded by Ajax while drawing the timeline.
 Here it is:
 
-####Structure
+#### Structure
 
 ```Javascript
 {
@@ -215,7 +221,8 @@ Here it is:
 }
 ```
 
-####Meanings
+#### Meanings
+
 Data node  | Description
 ------------- | -------------
 nodes.nodeId | **REQUIRED** Globally unique ID, levels ignored.
@@ -237,7 +244,8 @@ nodes.nodes.states | [Optional] Same as `option.dots.states`
 nodes.nodes.lines | [Optional] Same as `option.lines`
 nodes.nodes.board | [Optional] Same as `option.board`
 
-###Methods
+### Methods
+
 ```Javascript
         /*
          * Draw the timeline.
@@ -279,6 +287,7 @@ nodes.nodes.board | [Optional] Same as `option.board`
         HideNodeCB = function (callback, callback_data) {...}
 ```
 **Tips:**
+
 * You can call the method `ShowNode` as soon as the timeline drawed, like this:
 
 ```Javascript 
