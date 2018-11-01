@@ -1,35 +1,34 @@
 {
-    "nodes": [
-        {
+    "nodes": [{
             "nodeId": "node_1",
             "title": "Beginning",
             "date": "1982-08",
             "percent": 0,
-            "description": "This is the beginning of time-line."
+            "description": "Met you, at once."
         },
         {
             "nodeId": "node_2",
             "title": "One day",
             "date": "2001/09/01 00:00:00",
             "percent": 18,
-            "description": "QuickLauncher is a Visual Studio 2012/2010 extension that helps you find and open a specified..."
+            "description": "From that moment, we fell in love."
         },
         {
             "nodeId": "node_3",
-            "title": "<span style='color: red;'>Another day</span>",
+            "title": "Great!",
             "date": "2005/07/01 00:00:00",
             "percent": 45,
             "board": {
                 "width": 280
             },
-            "description": "<img src='images/coreplex.jpg' width='260' height='146' border='0' vspace='5' /><br /><strong>&lt;HTML&gt;</strong> <span style='color:blue'>tags</span> supported!"
+            "description": "We get married!"
         },
         {
             "nodeId": "node_4",
             "title": "Future",
             "date": "2012/12/20 00:00:00",
             "percent": 97,
-            "description": "The last node of the time-line. The detail board will be on the left of mouse."
+            "description": "执子之手，与子偕老。<br />Hold your hand and grow old together with you."
         }
     ]
 }

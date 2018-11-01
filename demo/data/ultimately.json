@@ -1,6 +1,5 @@
 {
-    "nodes": [
-        {
+    "nodes": [{
             "nodeId": "node_1",
             "title": "Beginning",
             "date": "1982-08",
@@ -23,8 +22,7 @@
             "date": "2001/09/01 00:00:00",
             "percent": 18,
             "description": "I found another way to my dream...",
-            "nodes":[
-                {
+            "nodes": [{
                     "nodeId": "node_3",
                     "title": "On my way to dream",
                     "date": "2001/09/01 00:00:00",
@@ -37,10 +35,10 @@
                     "date": "1982-08",
                     "percent": 95,
                     "description": "I can make it, I am sure.",
-                    "lines":{
-                        "type":"dotted",
-                        "width":5,
-                        "color_dotted":"#DDDDDD",
+                    "lines": {
+                        "type": "dotted",
+                        "width": 5,
+                        "color_dotted": "#DDDDDD",
                         "stroke_dasharray": "16, 8"
                     },
                     "states": {
@@ -59,18 +57,16 @@
             "date": "2005/07/01 00:00:00",
             "percent": 35,
             "description": "<img src='images/coreplex.jpg' width='260' height='146' vspace='5' border='0' /><br />Nice! I am already here by default.",
-            "nodes":[
-                {
-                    "nodeId": "node_6",
-                    "title": "One day",
-                    "date": "2001/09/01 00:00:00",
-                    "offsetY":"up",
-                    "percent": 50,
-                    "description": "QuickLauncher is a Visual Studio 2012/2010 extension that helps you find and open a specified..."
-                }
-            ],
+            "nodes": [{
+                "nodeId": "node_6",
+                "title": "One day",
+                "date": "2001/09/01 00:00:00",
+                "offsetY": "up",
+                "percent": 50,
+                "description": "QuickLauncher is a Visual Studio 2012/2010 extension that helps you find and open a specified..."
+            }],
             "board": {
-                "width":280,
+                "width": 280,
                 "color_background": "#eeddff",
                 "color_border": "#8800ff",
                 "margin": 10,
@@ -80,11 +76,11 @@
             "states": {
                 "normal": {
                     "color": "#0088FF",
-                    "color_background": "#003366",
+                    "color_background": "#eeddff",
                     "radius": 15,
                     "border": 5
                 },
-                "active":{
+                "active": {
                     "color": "#0088FF",
                     "color_background": "#fff000",
                     "border": 2
@@ -104,8 +100,8 @@
             "date": "2012/12/20 00:00:00",
             "percent": 95,
             "description": "The last node of the time-line. The detail board will be on the left of mouse.",
-            "lines":{
-                "type":"dotted",
+            "lines": {
+                "type": "dotted",
                 "stroke_dasharray": "20, 10"
             }
         }

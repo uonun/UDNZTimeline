@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Demo of UDNZTimeline by udnz.com</title>
     <meta charset="utf-8">
@@ -37,7 +38,7 @@
             padding: 0 2em;
         }
     </style>
-    <link rel="stylesheet" href="../src/css/timeline.css"/>
+    <link rel="stylesheet" href="../src/css/timeline.css" />
     <script src="scripts/jquery-1.10.2.min.js"></script>
     <script src="../src/timeline.js?v=1.0.0.1"></script>
     <script>
@@ -54,62 +55,61 @@
             });
         });
     </script>
-    <meta name="author" content="udnz.com"/>
+    <meta name="author" content="udnz.com" />
 </head>
+
 <body>
-<section>
+    <section>
 
-    <h1>UDNZTimeline</h1>
-
-
-    <a href="https://github.com/uonun/UDNZTimeline" target="_blank"><img src="images/github.jpg" border="0"
-                                                                         align="right"></a>
-
-    <p>A light javascript library supporting multiple browsers to draw smart, beauty and dynamic timelines.</p>
-
-    <h2>
-        <a name="overview" class="anchor" href="#overview"><span class="octicon octicon-link"></span></a>Overview</h2>
-    <ul>
-        <li>It is a light javascript library.</li>
-        <li>For helping you to build a smart, beauty and dynamic timeline.</li>
-        <li>Based on HTML5, CSS3 and jQuery.</li>
-        <li>Supporting Chrome, Firefox, Opera, Safari, and IE 9+ on PC/MAC and mobile.<br/>
-            <img src="images/browsers_32x32.png" vspace="5" border="0"></li>
-    </ul>
+        <h1>UDNZTimeline</h1>
 
 
-</section>
-<section>
-    <h1>Demo 1: Basically</h1>
+        <a href="https://github.com/uonun/UDNZTimeline" target="_blank"><img src="images/github.jpg" border="0" align="right"></a>
 
-    <div id="demo_1_container"></div>
-    <div>
-        Please move your mouse over the nodes and enjoy it!
+        <p>A light javascript library supporting multiple browsers to draw smart, beauty and dynamic timelines.</p>
 
-        <strong>Features:</strong>
-        <ul class="features">
-            <li>Customize width.</li>
-            <li>Load unsynchronized data via Ajax.
-                <div class="description">We can load data from local/remote url via ajax!</div>
-            </li>
+        <h2>
+            <a name="overview" class="anchor" href="#overview"><span class="octicon octicon-link"></span></a>Overview</h2>
+        <ul>
+            <li><strong>Separated data &amp; style/layout.</strong></li>
+            <li><strong>Full controll(data &amp; style/layout) from back-end is also ok.</strong></li>
+            <li>Based on HTML5, CSS3 and jQuery.</li>
+            <li>Supporting Chrome, Firefox, Opera, Safari, and IE 9+ on PC/MAC and mobile.<br />
+                <img src="images/browsers_32x32.png" vspace="5" border="0"></li>
         </ul>
-        <strong>Html:</strong>
-        <pre>
-        &lt;div id="demo_1_container"&gt;&lt;/div&gt;</pre>
-        <strong>Script:</strong>
-        <pre>
-        $.UDNZTimeline({
-            "data_url": "<a href="data/basic.json" target="_blank">data/basic.json</a>",
-            "container": {
-                "id": "demo_1_container",
-                "width": 600
-            }
-        }).Draw();</pre>
-    </div>
 
-    <script>
-        $.UDNZTimeline({
-            "data_url": "data/basic.json",
+
+    </section>
+    <section>
+        <h1>Demo 1: Basically</h1>
+
+        <div id="demo_1_container"></div>
+        <p><strong>Please move your mouse over the nodes, enjoy it!</strong></p>
+        <div>
+            <strong>Features:</strong>
+            <ul class="features">
+                <li>Customize size.</li>
+                <li>Load data via Ajax.
+                    <div class="description">We can load data from local/remote url via ajax!</div>
+                </li>
+            </ul>
+            <strong>Html:</strong>
+            <pre>
+&lt;div id="demo_1_container"&gt;&lt;/div&gt;</pre>
+            <strong>Script:</strong>
+            <pre>
+$.UDNZTimeline({
+    data_url": "<a href="data/demo-1.json" target="_blank">data/demo-1.json</a>",
+    "container": {
+        "id": "demo_1_container",
+        <strong>"width": 600</strong>
+    }
+}).Draw();</pre>
+        </div>
+
+        <script>
+            $.UDNZTimeline({
+            "data_url": "data/demo-1.json",
             "container": {
                 "id": "demo_1_container",
                 "width": 600
@@ -117,27 +117,61 @@
         }).Draw();
     </script>
 
-</section>
-<section>
-    <h1>Demo 2: Advanced</h1>
+    </section>
+    <section>
+        <h1>Demo 2: Customized styles and effects.</h1>
 
-    <div id="demo_2_container"></div>
-    <div>
-        <strong>Features:</strong>
-        <ul class="features">
-            <li>Load unsynchronized data via Ajax.</li>
-            <li><strong>Unified customize nodes, lines and detail board.</strong></li>
-            <li><strong>Customize displaying effect.</strong></li>
-        </ul>
-        <strong>Html:</strong>
-        <pre>
-        &lt;div id="demo_2_container"&gt;&lt;/div&gt;</pre>
-        <strong>Script:</strong>
-        <pre>
-        $.UDNZTimeline({
-            "data_url": "<a href="data/basic.json" target="_blank">data/basic.json</a>",
+        <div id="demo_2_1_container"></div>
+        <div>
+            <strong>Features:</strong>
+            <ul class="features">
+                <li>Unified customize nodes, lines and detail board.</li>
+                <li>Customize displaying effect.</li>
+            </ul>
+            <strong>Html:</strong>
+            <pre>
+&lt;div id="demo_2_1_container"&gt;&lt;/div&gt;</pre>
+            <strong>Script:</strong>
+            <pre>
+$.UDNZTimeline({
+    "data_url": "<a href="data/demo-2-1.json" target="_blank">data/demo-2-1.json</a>",
+    "container": {
+        "id": "demo_2_container"
+    },
+    "dots": {
+        "states": {
+            "normal": {
+                "color": "#0088ff",
+                "radius": 12,
+                "border": 6
+            },
+            "active": {
+                "color": "#004499",
+                "radius": 12,
+                "border": 12
+            }
+        }
+    },
+    "lines": {
+        "width": 4,
+        "color": "#6699ff"
+    },
+    "board": {
+        "width": 300,
+        "color_bg": "#0088ff",
+        "margin": 10,
+        "border": 3,
+        "spliter_width": 1
+    },
+    "effect": $.DEFINED_EFFECT_TYPE.rotateX | $.DEFINED_EFFECT_TYPE.slide
+}).Draw();</pre>
+        </div>
+
+        <script>
+            $.UDNZTimeline({
+            "data_url": "data/demo-2-1.json",
             "container": {
-                "id": "demo_2_container"
+                "id": "demo_2_1_container"
             },
             "dots": {
                 "states": {
@@ -165,121 +199,116 @@
                 "spliter_width": 1
             },
             "effect": $.DEFINED_EFFECT_TYPE.rotateX | $.DEFINED_EFFECT_TYPE.slide
-        }).Draw();</pre>
-    </div>
-
-    <script>
-        $.UDNZTimeline({
-            "data_url": "data/basic.json",
-            "container": {
-                "id": "demo_2_container"
-            },
-            "dots": {
-                "states": {
-                    "normal": {
-                        "color": "#0088ff",
-                        "radius": 12,
-                        "border": 6
-                    },
-                    "active": {
-                        "color": "#004499",
-                        "radius": 12,
-                        "border": 12
-                    }
-                }
-            },
-            "lines": {
-                "width": 4,
-                "color": "#6699ff"
-            },
-            "board": {
-                "width": 300,
-                "color_bg": "#0088ff",
-                "margin": 10,
-                "border": 3,
-                "spliter_width": 1
-            },
-            "effect": $.DEFINED_EFFECT_TYPE.rotateX | $.DEFINED_EFFECT_TYPE.slide
         }).Draw();
     </script>
 
-</section>
-<section>
-    <h1>Demo 3: Ultimately</h1>
+        <div id="demo_2_2_container"></div>
+        <div><strong>You can configure them in the data(<a href="data/demo-2-2.json" target="_blank">data/demo-2-2.json</a>)
+                for dynamic rending as well.</strong></div>
+        <script>
+            $.UDNZTimeline({
+                "data_url": "data/demo-2-2.json",
+                "container": {
+                    "id": "demo_2_2_container"
+                }
+            }).Draw();
+        </script>
 
-    <div id="demo_3_container"></div>
-    <div>
-        <strong>Features:</strong>
-        <ul class="features">
-            <li>Load unsynchronized data via Ajax.</li>
-            <li><strong>Customize height.</strong></li>
-            <li><strong>Customize displaying effect.</strong></li>
-            <li><strong>Branches!</strong>
+    </section>
 
-                <div class="description">
-                    How to? See: <a href="data/branches.json" target="_blank">data/branches.json</a></div>
-            </li>
-            <li><strong>Actions!</strong>
+    <section>
+        <h1>Demo 3: Branches</h1>
 
-                <div class="description">
-                    You can make the detail board shown/hidden by javascript as well. Have a nice try by clicking the
-                    buttons below:<br/>
-                    <input type="button" value="Show the node!" onclick="line3.ShowNode('node_5')"/>
-                    <input type="button" value="Hide it!" onclick="line3.HideNode()"/>
-                    <input type="button" value="Show the node with callback!"
-                           onclick="line3.ShowNodeCB('node_5',function(){alert('the node is shown.')})"/>
-                    <input type="button" value="Hide it with callback!"
-                           onclick="line3.HideNodeCB(function(){alert('Ok, I am out.');})"/>
-                </div>
-            </li>
-            <li><strong>Customize each nodes, lines and detail board separately!</strong>
-
-                <div class="description">
-                    This customization this time is separately while not unified! You can define nodes, lines, and
-                    detail board
-                    one by one.<br/>
-                    Please move the mouse over the <strong style="color: #0088FF">blue</strong> node and enjoy it!
-                </div>
-            </li>
-        </ul>
-
-        <strong>Html:</strong>
-        <pre>
-        &lt;div id="demo_3_container"&gt;&lt;/div&gt;
-
-        &lt;input type="button" value="Show the node!" onclick="line3.ShowNode('node_5')"/&gt;
-        &lt;input type="button" value="Hide it!" onclick="line3.HideNode()"/&gt;
-        &lt;input type="button" value="Show the node with callback!"
-               onclick="line3.ShowNodeCB('node_5',function(){alert('the node is shown.')})"/&gt;
-        &lt;input type="button" value="Hide it with callback!"
-               onclick="line3.HideNodeCB(function(){alert('Ok, I am out.');})"/&gt;</pre>
-        <strong>Script:</strong>
-        <pre>
-        // define a variable to handle the instance so that we can do actions on it.
-        var line3 = $.UDNZTimeline({
-            "data_url": "<a href="data/branches.json" target="_blank">data/branches.json</a>",
+        <div id="demo_3_1_container"></div>
+        <div>
+            <strong>Features:</strong>
+            <ul class="features">
+                <li>Branches from any node.</li>
+            </ul>
+            <strong>Data:</strong>
+            <a href="data/demo-3-1.json" target="_blank">data/demo-3-1.json</a>
+        </div>
+        <script>
+            $.UDNZTimeline({
+            "data_url": "data/demo-3-1.json",
             "container": {
-                "id": "demo_3_container",
-                "height": 350
-            },
-            "effect": $.DEFINED_EFFECT_TYPE.rotateY | $.DEFINED_EFFECT_TYPE.slide
-        }).Draw().ShowNode('node_5',500);</pre>
-    </div>
-
-    <script>
-        var line3 = $.UDNZTimeline({
-            "data_url": "data/branches.json",
-            "container": {
-                "id": "demo_3_container",
-                "height": 350
-            },
-            "effect": $.DEFINED_EFFECT_TYPE.rotateY | $.DEFINED_EFFECT_TYPE.slide
-        }).Draw().ShowNode('node_5', 500);
+                "id": "demo_3_1_container"
+            }
+        }).Draw();
     </script>
+    </section>
 
-</section>
-<div style="padding: 2em;text-align: center"><p>UDNZTimeline by Austin Luo (uonun) is licensed under a GPL License.<br/>Really
-    all that's important to me is that please <a href="http://work.udnz.com/Contact.aspx" title="contact">let me
-        know</a> if you find any bug or improvement.</p></div>
+    <section>
+        <h1>Demo: Ultimately</h1>
+
+        <div id="demo_9_container"></div>
+        <div>
+            <strong>Features:</strong>
+            <ul class="features">
+                <li><strong>Actions and Callbacks!</strong>
+
+                    <div class="description">
+                        You can make the detail board shown/hidden by javascript as well. Have a nice try by clicking
+                        the
+                        buttons below:<br />
+                        <input type="button" value="Show the node!" onclick="line.ShowNode('node_5')" />
+                        <input type="button" value="Hide it!" onclick="line.HideNode()" />
+                        <input type="button" value="Show the node with callback!" onclick="line.ShowNodeCB('node_5',function(){alert('the node is shown.')})" />
+                        <input type="button" value="Hide it with callback!" onclick="line.HideNodeCB(function(){alert('Ok, I am out.');})" />
+                    </div>
+                </li>
+                <li><strong>Customize each nodes, lines and detail board separately!</strong>
+
+                    <div class="description">
+                        This customization this time is separately while not unified! You can define nodes, lines, and
+                        detail board
+                        one by one.<br />
+                        Please move the mouse over the <strong style="color: #0088FF">blue</strong> node and enjoy it!
+                    </div>
+                </li>
+            </ul>
+
+            <strong>Html:</strong>
+            <pre>
+&lt;div id="demo_3_container"&gt;&lt;/div&gt;
+
+&lt;input type="button" value="Show the node!" onclick="line.ShowNode('node_5')"/&gt;
+&lt;input type="button" value="Hide it!" onclick="line.HideNode()"/&gt;
+&lt;input type="button" value="Show the node with callback!"
+        onclick="line.ShowNodeCB('node_5',function(){alert('the node is shown.')})"/&gt;
+&lt;input type="button" value="Hide it with callback!"
+        onclick="line.HideNodeCB(function(){alert('Ok, I am out.');})"/&gt;</pre>
+            <strong>Script:</strong>
+            <pre>
+// define a variable to handle the instance so that we can do actions on it.
+var line = $.UDNZTimeline({
+    "data_url": "<a href="data/ultimately.json" target="_blank">data/ultimately.json</a>",
+    "container": {
+        "id": "demo_3_container",
+        "height": 350
+    },
+    "effect": $.DEFINED_EFFECT_TYPE.rotateY | $.DEFINED_EFFECT_TYPE.slide
+}).Draw().ShowNode('node_5',500);</pre>
+        </div>
+
+        <script>
+            var line = $.UDNZTimeline({
+                "data_url": "data/ultimately.json",
+                "container": {
+                    "id": "demo_9_container",
+                    "height": 350
+                },
+                "effect": $.DEFINED_EFFECT_TYPE.rotateY | $.DEFINED_EFFECT_TYPE.slide
+            }).Draw().ShowNode('node_5', 500);
+        </script>
+
+    </section>
+    <div style="padding: 2em;text-align: center">
+        <p>UDNZTimeline by Austin Luo (uonun) is licensed under a GPL License.<br />Really
+            all that's important to me is that please <a href="http://work.udnz.com/Contact.aspx" title="contact">let
+                me
+                know</a> if you find any bug or improvement.</p>
+    </div>
 </body>
+
 </html>
