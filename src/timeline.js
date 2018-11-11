@@ -149,17 +149,7 @@
 
                 this.params.figure._id = this.__getPrivateDomId('svg_container')
                 // generate figure container.
-                container.prepend(
-                    '<div ' +
-                    "id='" +
-                    this.params.figure._id +
-                    "' " +
-                    "class='" +
-                    this.__getEffectStyle() +
-                    "'" +
-                    "style='position: relative; overflow: hidden;'" +
-                    '></div>'
-                )
+                container.prepend("<div id='" + this.params.figure._id + "' class='" + this.__getEffectStyle() + "' style='position: relative; overflow: hidden;'></div>")
 
                 // get the DOM after generating.
                 this.params.figure._ref = $('#' + this.params.figure._id)
@@ -420,31 +410,7 @@
                 node: node
             })
 
-            this.params.figure._ref.append(
-                '<' +
-                dotDomTag +
-                " id='" +
-                id +
-                "' " +
-                "class='" +
-                cssName +
-                " __tl_removable' " +
-                "nodeId='" +
-                node.nodeId +
-                "' " +
-                "x='" +
-                to.x +
-                "' " +
-                "y='" +
-                to.y +
-                "'" +
-                "style='" +
-                dotStyle +
-                "'" +
-                '></' +
-                dotDomTag +
-                '>'
-            )
+            this.params.figure._ref.append('<' + dotDomTag + " id='" + id + "' " + "class='" + cssName + " __tl_removable' " + "nodeId='" + node.nodeId + "' " + "x='" + to.x + "' " + "y='" + to.y + "'" + "style='" + dotStyle + "'" + '></' + dotDomTag + '>')
 
             $('#' + id)
                 .mouseenter(function () {
@@ -520,27 +486,9 @@
             var offset = to.y - from.y
             var d = 'M'
             d += from.x + ' ' + from.y + ' '
-            d +=
-                'Q' +
-                parseInt(from.x + Math.abs(offset)) +
-                ' ' +
-                parseInt(from.y + offset) +
-                ' ' +
-                to.x +
-                ' ' +
-                parseInt(to.y - this.params.lines.width / 2) +
-                ' '
+            d += 'Q' + parseInt(from.x + Math.abs(offset)) + ' ' + parseInt(from.y + offset) + ' ' + to.x + ' ' + parseInt(to.y - this.params.lines.width / 2) + ' '
             d += 'L' + to.x + ' ' + parseInt(to.y + this.params.lines.width / 2) + ' '
-            d +=
-                'Q' +
-                parseInt(from.x + Math.abs(offset)) +
-                ' ' +
-                parseInt(to.y + this.params.lines.width / 2) +
-                ' ' +
-                from.x +
-                ' ' +
-                from.y +
-                ' '
+            d += 'Q' + parseInt(from.x + Math.abs(offset)) + ' ' + parseInt(to.y + this.params.lines.width / 2) + ' ' + from.x + ' ' + from.y + ' '
             d += 'Z'
             var path = this.__createElementNS(
                 document,
@@ -753,26 +701,7 @@
                 )
             }
 
-            var dotStyle =
-                'width:' +
-                parseInt(state.radius) * 2 +
-                'px;' +
-                'height:' +
-                parseInt(state.radius) * 2 +
-                'px;' +
-                'margin:' +
-                parseInt(state.radius) * -1 +
-                'px 0 0 ' +
-                parseInt(state.radius) * -1 +
-                'px;' +
-                'background-color:' +
-                state.color_background +
-                ';' +
-                'border:' +
-                parseInt(state.border) +
-                'px solid ' +
-                state.color +
-                ';'
+            var dotStyle = 'width:' + parseInt(state.radius) * 2 + 'px;' + 'height:' + parseInt(state.radius) * 2 + 'px;' + 'margin:' + parseInt(state.radius) * -1 + 'px 0 0 ' + parseInt(state.radius) * -1 + 'px;' + 'background-color:' + state.color_background + ';' + 'border:' + parseInt(state.border) + 'px solid ' + state.color + ';'
 
             if (!!!position) {
                 dom = $(dom)
