@@ -722,7 +722,7 @@
         this.__getHotDotState = function (stateId, dom, node) {
             if (!!!node) {
                 if (!!dom) {
-                    node = this.__getNodeByNodeId($(dom).attr('nodeId'))
+                    node = this.__getNodeByNodeData($(dom).attr('nodeId'))
                 }
             }
 
