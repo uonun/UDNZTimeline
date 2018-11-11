@@ -514,7 +514,7 @@
                 this.__hideDetail()
 
                 var offsetY = dotDom.offsetTop
-                var node = this.__getNodeByNodeData(nodeId)
+                var node = this.__getNodeByNodeId(nodeId)
                 if (!!node) {
                     // fill the required/defined member.
                     var dots_cfg = $.extend(
@@ -622,12 +622,12 @@
             return dom
         }
 
-        this.__getNodeByNodeData = function (nodeId) {
+        this.__getNodeByNodeId = function (nodeId) {
             return this.__getNode(nodeId, 'nodeId')
         }
 
-        this.__getNodeByNodeId = function (nodeId) {
-            return this.__getNode(nodeId, '__id')
+        this.__getNodeByInternalId = function (internalId) {
+            return this.__getNode(internalId, '__id')
         }
 
         this.__getNode = function (targetValue, targetProperty) {
@@ -722,7 +722,7 @@
         this.__getHotDotState = function (stateId, dom, node) {
             if (!!!node) {
                 if (!!dom) {
-                    node = this.__getNodeByNodeData($(dom).attr('nodeId'))
+                    node = this.__getNodeByNodeId($(dom).attr('nodeId'))
                 }
             }
 
