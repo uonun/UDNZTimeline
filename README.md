@@ -2,28 +2,28 @@
 
 ## Overview
 
-* It is a light javascript library.
-* For helping you to build a smart, beauty and dynamic timeline.
-* Based on HTML5, CSS3 and jQuery.
-* Supporting Chrome, Firefox, Opera, Safari, and IE 9+ on PC/MAC and mobile (IPad, Android, Windows Phone).
+- It is a light javascript library.
+- For helping you to build a smart, beauty and dynamic timeline.
+- Based on HTML5, CSS3 and jQuery.
+- Supporting Chrome, Firefox, Opera, Safari, and IE 9+ on PC/MAC and mobile (IPad, Android, Windows Phone).
 
 ![Supporting Chrome, Firefox, Opera, Safari, and IE 9+ on PC/MAC and mobile](./demo/images/browsers_32x32.png)
 
 ## Demo
 
-* http://uonun.github.io/UDNZTimeline/demo/index.html
+- http://uonun.github.io/UDNZTimeline/demo/index.html
 
 ## Requirements
 
-* Javascript with jQuery.
-* Modern browser which is supporting HTML5 and CSS3.
+- Javascript with jQuery.
+- Modern browser which is supporting HTML5 and CSS3.
 
 ## Usage
 
 1. Include `timeline.css`, `jQuery.min.js` and `timeline.js`
 
 ```html
-<link rel="stylesheet" href="path/to/timeline.css"/>
+<link rel="stylesheet" href="path/to/timeline.css" />
 <script src="path/to/jquery.min.js"></script>
 <script src="path/to/timeline.js"></script>
 ```
@@ -36,7 +36,7 @@
 
 1. Instantiate with `options`. If you are using multiple timelines in one page, `options` can be set on each individual timeline:
 
-    See API: [Options](#options)
+   See API: [Options](#options)
 
 ```Javascript
 $.UDNZTimeline({
@@ -49,7 +49,7 @@ $.UDNZTimeline({
 
 1. Build your data.
 
-    See API: [Data structure](#data-structure).
+   See API: [Data structure](#data-structure).
 
 1. Enjoy it!
 
@@ -58,25 +58,25 @@ $.UDNZTimeline({
 ```html
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>UDNZTimeline by udnz.com</title>
-    <link rel="stylesheet" href="path/to/timeline.css"/>
+    <link rel="stylesheet" href="path/to/timeline.css" />
     <script src="path/to/jquery.min.js"></script>
     <script src="path/to/timeline.js"></script>
     <script>
-        $(function () {
-            $.UDNZTimeline({
-                "data_url": "url/or/path/to/data.json",
-                "container": {
-                    "id": "demo_1_container"
-                }
-            }).Draw();
-        });
+      $(function() {
+        $.UDNZTimeline({
+          data_url: 'url/or/path/to/data.json',
+          container: {
+            id: 'demo_1_container'
+          }
+        }).Draw()
+      })
     </script>
-</head>
-<body>
-<div id="demo_1_container"></div>
-</body>
+  </head>
+  <body>
+    <div id="demo_1_container"></div>
+  </body>
 </html>
 ```
 
@@ -154,8 +154,8 @@ $.DEFINED_EFFECT_TYPE = {
 
 **Tips:**
 
-* Some of the `effect` defined in `$.DEFINED_EFFECT_TYPE` could be combined.
-* Bezier lines could not be dotted.
+- Some of the `effect` defined in `$.DEFINED_EFFECT_TYPE` could be combined.
+- Bezier lines could not be dotted.
 
 #### Meanings
 
@@ -167,12 +167,12 @@ $.DEFINED_EFFECT_TYPE = {
 | option.container.height                    | [Optional] The height of timeline. Number, in `px`.                                                                                                   |
 | option.figure.offset.x                     | [Optional] Global horizontal offset. Number, in `px`.                                                                                                 |
 | option.figure.offset.y                     | [Optional] Global vertical offset. Number, in `px`.                                                                                                   |
-| *option.dots.states.normal._stateId*       | [Optional] Internal, please ignore it.                                                                                                                |
+| _option.dots.states.normal.\_stateId_      | [Optional] Internal, please ignore it.                                                                                                                |
 | option.dots.states.normal.color            | [Optional] The color of nodes.                                                                                                                        |
 | option.dots.states.normal.color_background | [Optional] The background color of nodes.                                                                                                             |
 | option.dots.states.normal.radius           | [Optional] The radius of nodes. Number, in `px`.                                                                                                      |
 | option.dots.states.normal.border           | [Optional] The border of nodes. Number, in `px`.                                                                                                      |
-| *option.dots.states.active._stateId*       | [Optional] Internal, please ignore it.                                                                                                                |
+| _option.dots.states.active.\_stateId_      | [Optional] Internal, please ignore it.                                                                                                                |
 | option.dots.states.active.color            | [Optional] The color of nodes when mouse over.                                                                                                        |
 | option.dots.states.active.color_background | [Optional] The background color of nodes when mouse over.                                                                                             |
 | option.dots.states.active.radius           | [Optional] The radius of nodes when mouse over. Number, in `px`.                                                                                      |
@@ -237,8 +237,8 @@ Here it is:
 | ----------------------- | ---------------------------------------------------------------------------- |
 | nodes.nodeId            | **REQUIRED** Globally unique ID, levels ignored.                             |
 | nodes.title             | **REQUIRED** The title which is displayed on the board as `header`           |
-| *nodes.date*            | [Optional] Not used so far.                                                  |
-| nodes.percent           | **REQUIRED** The position of node.  Number, between 0 and 100. [0,100]       |
+| _nodes.date_            | [Optional] Not used so far.                                                  |
+| nodes.percent           | **REQUIRED** The position of node. Number, between 0 and 100. [0,100]        |
 | nodes.description       | **REQUIRED** The detail message which is displayed on the board as `content` |
 | nodes.states            | [Optional] Same as `option.dots.states`                                      |
 | nodes.lines             | [Optional] Same as `option.lines`                                            |
@@ -246,7 +246,7 @@ Here it is:
 | nodes.nodes             | [Optional] Array of branch nodes. They will be displayed as a branch.        |
 | nodes.nodes.nodeId      | **REQUIRED if `nodes.nodes` exists** Same as `nodes.nodeId`                  |
 | nodes.nodes.title       | **REQUIRED if `nodes.nodes` exists** Same as `nodes.title`                   |
-| *nodes.nodes.date*      | [Optional] Same as `nodes.date`                                              |
+| _nodes.nodes.date_      | [Optional] Same as `nodes.date`                                              |
 | nodes.nodes.percent     | **REQUIRED if `nodes.nodes` exists** Same as `nodes.percent`                 |
 | nodes.nodes.description | **REQUIRED if `nodes.nodes` exists** Same as `nodes.description`             |
 | nodes.nodes.offsetY     | [Optional] Same as `option.dots.offsetY` Number, in `px`, or string `up`.    |
@@ -297,21 +297,36 @@ HideNode = function (delay) {...}
 HideNodeCB = function (callback, callback_data) {...}
 ```
 
+```Javascript
+/*
+ * Set local data.
+ * @data: local data
+ *
+ * call SetData(null) to clear it.
+ * */
+SetData = function (data) {...}
+```
+
+```Javascript
+/*
+ * Set options at runtime.
+ * */
+SetOptions = function (options) {...}
+```
+
 **Tips:**
 
-* You can call the method `ShowNode` as soon as the timeline drawed, like this:
+- You can call the method `ShowNode` as soon as the timeline drawed, like this:
 
-```Javascript 
+```Javascript
 // There must be a delay due to the method `Draw` needs time.
 $.UDNZTimeline(*options*).Draw().ShowNode('node_5',500);
 ```
 
-* Perhaps you have noticed that the callback function appear to be earlier than the actual function calls `ShowNodeCB`/`HideNodeCB`, which is normal and correct. The reason why this is so, because the methods `ShowNodeCB`/`HideNodeCB` just specify an animation "Show"/"Hide", will not do any real work which needs time.
-
-## Change Log
-
-**v1.0 (2/28/2014)**
-* First release
+- Perhaps you have noticed that the callback function appear to be earlier than the actual function calls `ShowNodeCB`/`HideNodeCB`, which is normal and correct. The reason why this is so, because the methods `ShowNodeCB`/`HideNodeCB` just specify an animation "Show"/"Hide", will not do any real work which needs time.
 
 ## License
-UDNZTimeline by Austin Luo (uonun) is licensed under a GPL License. Really all that's important to me is that please [let me know](http://work.udnz.com/Contact.aspx "contact") if you find any bug or improvement.
+
+UDNZTimeline by Austin Luo (uonun) is licensed under a GPL License.
+Really all that's important to me is that please [let me know](./issues) if you find any bug or improvement.
+Any PR is welcome!

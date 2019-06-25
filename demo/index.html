@@ -266,8 +266,8 @@ $.UDNZTimeline({
         </ul>
         <div style="width: 49%; float:left">
           <div style="width: 49%; float: left;">
-            <strong>Params:</strong><br />
-            <textarea id="local_params" style="width: 100%; height: 200px;">
+            <strong>Options:</strong><br />
+            <textarea id="local_options" style="width: 100%; height: 200px;">
 {
   "container": {
     "id": "demo_4_1_container",
@@ -339,22 +339,16 @@ $.UDNZTimeline({
           }
         }).Draw()
         function SetLocalData() {
-          var data
+          var data, options
           try {
             data = JSON.parse($('#local_data').val())
+            options = JSON.parse($('#local_options').val())
           } catch (e) {
-            alert('Can not parse data: ' + e)
-            return
-          }
-          var params
-          try {
-            params = JSON.parse($('#local_params').val())
-          } catch (e) {
-            alert('Can not parse params: ' + e)
+            alert('Can not parse data/options: ' + e)
             return
           }
           local_data_line.SetData(data)
-          local_data_line.SetParams(params)
+          local_data_line.SetOptions(options)
           local_data_line.Draw()
         }
       </script>

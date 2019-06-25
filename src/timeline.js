@@ -131,14 +131,11 @@
         }
 
         /**
-         * Set local data.
-         * @data: local data
-         * 
-         * call SetData(null) to clear it.
+         * Set options at runtime.
          */
-        this.SetParams = function(params){
-            if(!!params){
-                this.params = $.extend(true,this.params, params)
+        this.SetOptions = function(options){
+            if(!!options){
+                this.params = $.extend(true,this.params, options)
             }
         }
 
