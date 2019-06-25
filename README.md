@@ -328,5 +328,5 @@ $.UDNZTimeline(*options*).Draw().ShowNode('node_5',500);
 ## License
 
 UDNZTimeline by Austin Luo (uonun) is licensed under a GPL License.
-Really all that's important to me is that please [let me know](./issues) if you find any bug or improvement.
+Really all that's important to me is that please [let me know](https://github.com/uonun/UDNZTimeline/issues) if you find any bug or improvement.
 Any PR is welcome!
