@@ -119,6 +119,29 @@
         }
         this._svg
 
+        /**
+         * Set local data.
+         * @data: local data
+         * 
+         * call SetData(null) to clear it.
+         */
+        this.SetData = function(data){
+            data= data || {}
+            this._cache.data = data
+        }
+
+        /**
+         * Set local data.
+         * @data: local data
+         * 
+         * call SetData(null) to clear it.
+         */
+        this.SetParams = function(params){
+            if(!!params){
+                this.params = $.extend(true,this.params, params)
+            }
+        }
+
         /*
          * Draw the timeline.
          * */
@@ -148,7 +171,8 @@
                 svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg')
 
                 this.params.figure._id = this.__getPrivateDomId('svg_container')
-                // generate figure container.
+                // rebuild the figure container.
+                $("div#"+this.params.figure._id).remove()
                 container.prepend("<div id='" + this.params.figure._id + "' class='" + this.__getEffectStyle() + "' style='position: relative; overflow: hidden;'></div>")
 
                 // get the DOM after generating.
@@ -267,7 +291,7 @@
 
                 if (!!this._cache.data) {
                     this.__drawNodes(this._cache.data)
-                } else {
+                } else if(!!this.params.data_url){
                     $.ajax({
                         type: 'GET',
                         url: this.params.data_url,
@@ -285,6 +309,9 @@
                             )
                         }
                     })
+                }else{                    
+                    this._cache.data = {}
+                    this.__drawNodes(this._cache.data)
                 }
             } else {
                 this.__showErrMsg('Can not create &lt;svg&gt;!')
